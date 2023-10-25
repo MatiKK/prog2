@@ -2,15 +2,15 @@ package Amazing;
 
 public class Utilitario extends Transporte{
 
-	public Utilitario(String identificador, double volumenMaximoDeCarga, double valorPorViaje) {
+	private double valorExtraPorViaje;
+	public Utilitario(String identificador, double volumenMaximoDeCarga, double valorPorViaje, double valorExtraPorViaje) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
-		// TODO Auto-generated constructor stub
+		this.valorExtraPorViaje = valorExtraPorViaje;
 	}
 
 	@Override
-	double calcularCosto() {
-		// TODO Auto-generated method stub
-		return 0;
+	double calcularPrecioViaje() {
+		return valorPorViaje * ((cantidadPaquetes() > 3)? valorExtraPorViaje : 1);
 	}
 
 }

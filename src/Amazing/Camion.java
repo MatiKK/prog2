@@ -10,9 +10,8 @@ public class Camion extends Transporte {
 	}
 
 	@Override
-	double calcularCosto() {
-		// TODO Auto-generated method stub
-		return 0;
+	double calcularPrecioViaje() {
+		return valorPorViaje + valorExtraPorViaje * cantidadPaquetes();
 	}
 
 }

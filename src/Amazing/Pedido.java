@@ -5,13 +5,17 @@ import java.util.HashMap;
 public class Pedido {
 
 	private int numPedido;
+	
+	private int dniCliente;
 	private String nombreCliente;
 	private String direccion;
+
 	private HashMap<Integer, Paquete> carritoPaquetesComprados;
 	private String estado;
 	
-	public Pedido(int numPedido, String nombreCliente, String direccion) {
+	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
 		this.numPedido = numPedido;
+		this.dniCliente= dniCliente;
 		this.nombreCliente = nombreCliente;
 		this.direccion = direccion;
 	}

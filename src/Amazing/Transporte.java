@@ -1,28 +1,53 @@
 package Amazing;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Transporte {
 
-	private String identificador;
-	private double volumenMaximoDeCarga;
-	private double valorPorViaje;
-	private HashMap<Integer,Paquete> paquetes;
-	
+	protected String identificador;
+	protected double volumenMaximoDeCarga;
+	protected double valorPorViaje;
+	protected HashMap<Integer, Paquete> paquetes;
+
 	public Transporte(String identificador, double volumenMaximoDeCarga, double valorPorViaje) {
 		this.identificador = identificador;
 		this.volumenMaximoDeCarga = volumenMaximoDeCarga;
 		this.valorPorViaje = valorPorViaje;
 	}
-	
-	double calcularPrecioViaje() {return 0;}
-	
-	boolean cargarPaquete(Paquete p) {return false;}
-	
-	double consultarCarga() {return 0;}
-	
-	abstract double calcularCosto();
-	
-	
-	
+
+	double calcularPrecioViaje() {
+		return valorPorViaje;
+	};
+
+	void cargarPaquete(Paquete p) {
+
+		int identificadorPaquete = p.obtenerIdentificador();
+
+		Paquete pYaExiste = buscarPaquete(identificadorPaquete);
+
+		if (pYaExiste == null) {
+			paquetes.put(identificadorPaquete, p);
+		}
+
+	}
+
+	private Paquete buscarPaquete(int identificador) {
+		return paquetes.get(identificador);
+	}
+
+	double consultarCarga() {
+
+		double cargaTotal = 0;
+		for (Map.Entry<Integer, Paquete> paquete : paquetes.entrySet()) {
+			cargaTotal += paquete.getValue().calcularVolumen();
+		}
+		return cargaTotal;
+
+	}
+
+	protected int cantidadPaquetes() {
+		return paquetes.size();
+	}
+
 }

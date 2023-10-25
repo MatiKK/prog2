@@ -12,6 +12,12 @@ public abstract class Paquete {
 		this.precio = precio;
 	}
 	
-	public double calcularVolumen() {return 0;}
+	public int obtenerIdentificador() {
+		return this.identificador;
+	}
+
+	public double calcularVolumen() {
+		return this.volumen;
+	}
 	
 }
