@@ -12,7 +12,7 @@ public class EmpresaAmazing implements IEmpresa{
 	
 	public EmpresaAmazing(String string) {
 		cuit = string;
-	}
+	}//A VER SI FUNCIONAAAAAAAAAAAA
 
 	@Override
 	public void registrarAutomovil(String patente, int volMax, int valorViaje, int maxPaq) {
