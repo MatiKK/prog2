@@ -14,4 +14,13 @@ public class Camion extends Transporte {
 		return valorPorViaje + valorExtraPorViaje * cantidadPaquetes();
 	}
 
+	@Override
+	protected boolean puedeLlevarEstePaquete(Paquete p) {
+		if (!(p instanceof PaqueteEspecial))
+			return false;
+	
+		return p.calcularVolumen() > 2000 &&
+				super.puedeLlevarEstePaquete(p);
+	}
+
 }

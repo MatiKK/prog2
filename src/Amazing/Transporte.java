@@ -36,6 +36,13 @@ public abstract class Transporte {
 		return paquetes.get(identificador);
 	}
 
+	protected boolean puedeLlevarEstePaquete(Paquete p) {
+		double cargaActual = this.consultarCarga();
+		double cargaDelPaquete = p.calcularVolumen();
+		
+		return cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga;
+	}
+	
 	double consultarCarga() {
 
 		double cargaTotal = 0;

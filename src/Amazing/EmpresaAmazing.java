@@ -20,7 +20,7 @@ public class EmpresaAmazing implements IEmpresa{
 		if (transportes.containsKey(patente)) System.out.println("La patente ingresada ya existe");
 		
 		else {
-			Transporte auto = new Automovil(patente, volMax, valorViaje);
+			Transporte auto = new Automovil(patente, volMax, valorViaje, maxPaq);
 			transportes.put(patente, auto);
 			System.out.println("El automovil fué agregado exitosamente");
 		}

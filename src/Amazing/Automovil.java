@@ -22,16 +22,15 @@ public class Automovil extends Transporte{
 			super.cargarPaquete(p);
 	}
 	
-	private boolean puedeLlevarEstePaquete(Paquete p) {
+	@Override
+	protected boolean puedeLlevarEstePaquete(Paquete p) {
 		
 		if (!(p instanceof PaqueteOrdinario))
 			return false;
-
-		double cargaActual = this.consultarCarga();
-		double cargaDelPaquete = p.calcularVolumen();
 		
-		return cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga
-				&& cantidadPaquetes() < this.limiteMaximoDePaquetes;
+		return p.calcularVolumen() < 2000
+				&& cantidadPaquetes() < this.limiteMaximoDePaquetes
+				&& super.puedeLlevarEstePaquete(p);
 	}
 
 }

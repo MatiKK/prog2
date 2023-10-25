@@ -14,4 +14,9 @@ public class Utilitario extends Transporte{
 		return valorPorViaje * ((cantidadPaquetes() > 3)? valorExtraPorViaje : 1);
 	}
 
+	@Override
+	protected boolean puedeLlevarEstePaquete(Paquete p) {
+		return super.puedeLlevarEstePaquete(p);
+	}
+
 }
