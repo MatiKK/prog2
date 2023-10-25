@@ -1,5 +1,6 @@
 package Amazing;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +35,22 @@ public abstract class Transporte {
 
 	}
 	
+	ArrayList<Paquete> paquetesNoEntregados(){
+		if (this.noTienePaquetes())
+			return null;
+		
+		ArrayList<Paquete> paquetesNoEntregados = new ArrayList<Paquete>();
+		
+		for (Map.Entry<Integer, Paquete> p: paquetes.entrySet()) {
+			
+			Paquete paquete = p.getValue();
+			if (!paquete.fueEntregado())
+				paquetesNoEntregados.add(paquete);
+		}
+		return paquetesNoEntregados;
+		
+	}
+	
 	private Paquete buscarPaquete(int identificador) {
 		return paquetes.get(identificador);
 	}
@@ -58,6 +75,10 @@ public abstract class Transporte {
 
 	protected int cantidadPaquetes() {
 		return paquetes.size();
+	}
+	
+	protected boolean noTienePaquetes() {
+		return this.cantidadPaquetes() == 0;
 	}
 
 }

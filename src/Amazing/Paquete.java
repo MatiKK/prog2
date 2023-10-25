@@ -19,5 +19,10 @@ public abstract class Paquete {
 	public double calcularVolumen() {
 		return this.volumen;
 	}
+
+	public boolean fueEntregado() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
