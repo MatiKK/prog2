@@ -26,8 +26,22 @@ public class Pedido {
 
 	public String consultarEstado() {return "";}
 	
-	public void agregarPaqueteOrdinario(int identificador, double volumen, double precio, double costoDeEnvio) {}
+	public void agregarPaqueteOrdinario(int identificador, double volumen, double precio, double costoDeEnvio) {
+		int codPaquete = crearCodPaquete(identificador);
+		
+		Paquete paquete = new PaqueteOrdinario(codPaquete, volumen, precio, costoDeEnvio);  
+		
+		
+		carritoPaquetesComprados.put(codPaquete, paquete);
+	}
 	
 	public void agregarPaqueteEspecial(int identificador, double volumen, double precio, double porcentajeAdicional) {}
+	
+	private int crearCodPaquete (int cod) {
+		while (carritoPaquetesComprados.containsKey(cod))
+			cod+=1;
+			
+		return cod;
+	}
 	
 }

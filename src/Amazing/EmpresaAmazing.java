@@ -6,7 +6,7 @@ import java.util.Map;
 public class EmpresaAmazing implements IEmpresa{
 
 	private String cuit;
-	private HashMap<Integer, Transporte> transportes;
+	private HashMap<String, Transporte> transportes;
 	private HashMap<Integer, Pedido> pedidos;
 	
 	
@@ -17,31 +17,54 @@ public class EmpresaAmazing implements IEmpresa{
 
 	@Override
 	public void registrarAutomovil(String patente, int volMax, int valorViaje, int maxPaq) {
-		// TODO Auto-generated method stub
+		if (transportes.containsKey(patente)) System.out.println("La patente ingresada ya existe");
+		
+		else {
+			Transporte auto = new Automovil(patente, volMax, valorViaje);
+			transportes.put(patente, auto);
+			System.out.println("El automovil fué agregado exitosamente");
+		}
 		
 	}
 
 	@Override
 	public void registrarUtilitario(String patente, int volMax, int valorViaje, int valorExtra) {
-		// TODO Auto-generated method stub
+		if (transportes.containsKey(patente)) System.out.println("La patente ingresada ya existe");
+		
+		else {
+			Transporte util = new Utilitario(patente, volMax, valorViaje,valorExtra);
+			transportes.put(patente, util);
+			System.out.println("El transporte utilitario fué agregado exitosamente");
+		}
 		
 	}
+	//acá había una lllave de cierre "}"
 
 	@Override
 	public void registrarCamion(String patente, int volMax, int valorViaje, int adicXPaq) {
-		// TODO Auto-generated method stub
+		if (transportes.containsKey(patente)) System.out.println("La patente ingresada ya existe");
 		
+		else {
+			Transporte util = new Camion(patente, volMax, valorViaje,adicXPaq);
+			transportes.put(patente, util);
+			System.out.println("El transporte utilitario fué agregado exitosamente");
+		}
 	}
 
 	@Override
 	public int registrarPedido(String cliente, String direccion, int dni) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		while (pedidos.containsKey(dni))
+			dni += 1;
+		
+		Pedido ped = new Pedido(dni, cliente, direccion);
+		pedidos.put(dni,ped);
+		return dni;
 	}
 
 	@Override
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio) {
-		// TODO Auto-generated method stub
+		pedidos.get(codPedido).agregarPaqueteOrdinario(codPedido, volumen, precio, costoEnvio);
 		return 0;
 	}
 
