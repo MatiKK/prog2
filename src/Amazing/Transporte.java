@@ -17,6 +17,8 @@ public abstract class Transporte {
 	}
 
 	double calcularPrecioViaje() {
+		if (this.cantidadPaquetes() == 0)
+			return 0;
 		return valorPorViaje;
 	};
 
@@ -31,12 +33,13 @@ public abstract class Transporte {
 		}
 
 	}
-
+	
 	private Paquete buscarPaquete(int identificador) {
 		return paquetes.get(identificador);
 	}
 
 	protected boolean puedeLlevarEstePaquete(Paquete p) {
+
 		double cargaActual = this.consultarCarga();
 		double cargaDelPaquete = p.calcularVolumen();
 		

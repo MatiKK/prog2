@@ -11,7 +11,7 @@ public class Utilitario extends Transporte{
 
 	@Override
 	double calcularPrecioViaje() {
-		return valorPorViaje * ((cantidadPaquetes() > 3)? valorExtraPorViaje : 1);
+		return super.calcularPrecioViaje() * ((cantidadPaquetes() > 3)? valorExtraPorViaje : 1);
 	}
 
 	@Override

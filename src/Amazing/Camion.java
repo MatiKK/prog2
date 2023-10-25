@@ -11,7 +11,7 @@ public class Camion extends Transporte {
 
 	@Override
 	double calcularPrecioViaje() {
-		return valorPorViaje + valorExtraPorViaje * cantidadPaquetes();
+		return super.calcularPrecioViaje() + valorExtraPorViaje * cantidadPaquetes();
 	}
 
 	@Override
