@@ -1,8 +1,9 @@
 package Amazing;
 
 public class Utilitario extends Transporte{
+	private double valorExtraPorCarga;
 
-	public Utilitario(String identificador, double volumenMaximoDeCarga, double valorPorViaje) {
+	public Utilitario(String identificador, double volumenMaximoDeCarga, double valorPorViaje, int valorExtra) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
 		// TODO Auto-generated constructor stub
 	}

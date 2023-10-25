@@ -22,7 +22,7 @@ public interface IEmpresa {
 	 * Registra un nuevo transporte tipo Utilitario en el sistema con los  
 	 * datos correspondiente a todo transporte y además:
 	 * 
-	 *  - un valor extra que cobra a la empresa si superan los 10 paquetes.
+	 *  - un valor extra que cobra a la empresa si superan los 3 paquetes.
 	 * 
 	 * Si esa patente ya esta en el sistema se debe generar una  excepcion.
 	 */
