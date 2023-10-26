@@ -11,7 +11,7 @@ public class Pedido {
 	private String direccion;
 
 	private HashMap<Integer, Paquete> carritoPaquetesComprados;
-	private String estado;
+	private boolean estado = false;
 	
 	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
 		this.numPedido = numPedido;
@@ -22,17 +22,15 @@ public class Pedido {
 	
 	public double calcularPrecio() {return 0;}
 	
-	public void modificarEstado() {}
+	public void entregar() {estado = true;}
 
-	public String consultarEstado() {return "";}
+	public boolean entregado() {return estado;}
 	
 	public void agregarPaquete(int identificador, double volumen, double precio, double costoDeEnvio) {
 		
 		int codPaquete = crearCodPaquete(identificador);
 		
-		Paquete paquete = new PaqueteOrdinario(codPaquete, volumen, precio, costoDeEnvio);  
-		
-		
+		Paquete paquete = new PaqueteOrdinario(codPaquete, volumen, precio, costoDeEnvio);
 		carritoPaquetesComprados.put(codPaquete, paquete);
 	}
 	
@@ -41,8 +39,6 @@ public class Pedido {
 		int codPaquete = crearCodPaquete(identificador);
 		
 		Paquete paquete = new PaqueteEspecial(codPaquete, volumen, precio, porcentajeAdicional, valorAdicional);  
-		
-		
 		carritoPaquetesComprados.put(codPaquete, paquete);
 	}
 	
