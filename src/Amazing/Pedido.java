@@ -1,6 +1,7 @@
 package Amazing;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Pedido {
@@ -41,30 +42,22 @@ public class Pedido {
 
 	public boolean entregado() {return estado;}
 	
-	public void agregarPaquete(int identificador, double volumen, double precio, double costoDeEnvio) {
+	public void agregarPaquete(Paquete p) {
 		
-		int codPaquete = crearCodPaquete(identificador);
+		carritoPaquetesComprados.put(p.obtenerIdentificador(), p);
 		
-		Paquete paquete = new PaqueteOrdinario(codPaquete, volumen, precio, costoDeEnvio);
-		carritoPaquetesComprados.put(codPaquete, paquete);
 	}
 	
-	public void agregarPaquete(int identificador, double volumen, double precio, double porcentajeAdicional, double valorAdicional) {
-		
-		int codPaquete = crearCodPaquete(identificador);
-		
-		Paquete paquete = new PaqueteEspecial(codPaquete, volumen, precio, porcentajeAdicional, valorAdicional);  
-		carritoPaquetesComprados.put(codPaquete, paquete);
-	}
+	boolean quitarPaquete(int identificadorPaquete) {
+		Paquete p = carritoPaquetesComprados.remove(identificadorPaquete);
+		return p != null;
 	
-	private int crearCodPaquete (int cod) {
+	}
+
+	public boolean tienesEstePaquete(int codPaquete) {
 		
+		return carritoPaquetesComprados.containsKey(codPaquete);
 		
-		// boludin creo que con return carritoPaquetesComprados.size() + 1 es lo mismo y O(1)
-		while (carritoPaquetesComprados.containsKey(cod))
-			cod+=1;
-			
-		return cod;
 	}
 	
 }
