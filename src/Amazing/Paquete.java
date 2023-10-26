@@ -26,5 +26,12 @@ public abstract class Paquete {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+
+	public double calcularPrecio() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

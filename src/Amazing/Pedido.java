@@ -1,6 +1,7 @@
 package Amazing;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Pedido {
 
@@ -21,19 +22,19 @@ public class Pedido {
 	}
 	
 	public double calcularPrecio() {
-		if (carritoPaquetesComprados == null) {
-			System.out.println("El pedido tiene el carrito vacío");
-			return 0;
+		
+		double precio = 0;
+		
+		for (Map.Entry<Integer,Paquete> paqueteHash: carritoPaquetesComprados.entrySet()) {
+			
+			Paquete paquete = paqueteHash.getValue();
+			
+			double precioPaquete = paquete.calcularPrecio();
+			
+			precio += precioPaquete;
 		}
 		
-		for (int codigo : carritoPaquetesComprados) {
-			
-			//NO ME ACUERDO COM HACER EL FOREACH
-			//plis hace éste así yo veo que onda y hago los demas
-			
-		}
-		
-		return 0;
+		return precio;
 		}
 	
 	public void entregar() {estado = true;}
