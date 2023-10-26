@@ -54,17 +54,18 @@ public class EmpresaAmazing implements IEmpresa{
 	@Override
 	public int registrarPedido(String cliente, String direccion, int dni) {
 		
-		while (pedidos.containsKey(dni))
-			dni += 1;
+		int cod=dni;
+		while (pedidos.containsKey(cod))
+			cod += 1;
 		
-		Pedido ped = new Pedido(dni, cliente, direccion);
+		Pedido ped = new Pedido(cod, dni, cliente, direccion);
 		pedidos.put(dni,ped);
 		return dni;
 	}
 
 	@Override
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio) {
-		pedidos.get(codPedido).agregarPaqueteOrdinario(codPedido, volumen, precio, costoEnvio);
+		pedidos.get(codPedido).agregarPaquete(codPedido, volumen, precio, costoEnvio);
 		return 0;
 	}
 
