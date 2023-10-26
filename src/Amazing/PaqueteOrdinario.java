@@ -8,5 +8,6 @@ public class PaqueteOrdinario extends Paquete{
 		super(identificador, volumen, precio);
 		this.costoDeEnvio = costoDeEnvio;
 	}
+	
 
 }

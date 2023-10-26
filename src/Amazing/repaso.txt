@@ -3,3 +3,36 @@ PONGAMOS ACÁ LAS COSAS QUE TENEMOS QUE HACER ASÍ VAMOS MARCANDO LO QUE HICIMOS
 - mati
 me parece que pude hacer la mierda del equals() para transportes que es para el hayTransportesIdenticos()
 Faltaría hacer un método equals() para PaqueteOrdinario y PaqueteEspecial
+
+
+()Solicitar la carga de un transporte dado su patente.
+()Devolver el listado de paquetes de un trasporte
+()Devolver el monto a pagar de la empresa por el viaje de un transporte
+()Calcular el total de facturación de TODOS los pedidos
+()Devuelve los pedidos cerrados y cuyos paquetes no fueron entregados en su totalidad
+(LISTO)Los transportes Utilitarios cobran extra con 3 paquetes, no 10
+()El listado de paquetes cargados se genera y se devuelve al cargar un transporte.
+()Se agrega una operación que cierre un pedido dado su código.
+	() Los transportes se cargan con paquetes de pedidos cerrados.
+	() La facturación total de los pedidos se hace con los pedidos cerrados.
+	() El listado de paquetes no entregados se los toma de los pedidos cerrados
+()Por pedido no necsariamente tiene que tener todos sus paquetes cargados en el mismo transporte.
+()Ver si dos transportes son identicos
+()Cuando cargamos un transporte, hay que devolver una lista de los paquetes haciendo un string donde cada linea sea un paquete:
+	 [ NroPedido - codPaquete ] dirección
+	 [ NroPedido - codPaquete ] dirección
+	 [ NroPedido - codPaquete ] dirección
+	
+
+
+Orden O(1):
+()Dado un transporte cargado devolver el costo que debe pagar la empresa por ese viaje.
+()Calcular el total de facturación de los pedidos registrados y terminados.
+
+
+
+
+
+//USAR STRING BUILDER
+//USAR ITERADORES O FOREACH
+//APLICAR toString 

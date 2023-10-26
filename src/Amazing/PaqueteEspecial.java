@@ -10,6 +10,8 @@ public class PaqueteEspecial extends Paquete{
 		this.porcentajeAdicional = porcentajeAdicional;
 		this.valorAdicional = valorAdicional;
 	}
+	
+
 
 }
  

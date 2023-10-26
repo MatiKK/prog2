@@ -12,6 +12,8 @@ public abstract class Paquete {
 		this.precio = precio;
 	}
 	
+
+	
 	public int obtenerIdentificador() {
 		return this.identificador;
 	}
