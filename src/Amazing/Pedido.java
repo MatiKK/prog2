@@ -43,6 +43,9 @@ public class Pedido {
 	}
 	
 	private int crearCodPaquete (int cod) {
+		
+		
+		// boludin creo que con return carritoPaquetesComprados.size() + 1 es lo mismo y O(1)
 		while (carritoPaquetesComprados.containsKey(cod))
 			cod+=1;
 			

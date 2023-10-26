@@ -1,0 +1,5 @@
+PONGAMOS ACÁ LAS COSAS QUE TENEMOS QUE HACER ASÍ VAMOS MARCANDO LO QUE HICIMOS Y VEMOS LO QUE FALTA
+
+- mati
+me parece que pude hacer la mierda del equals() para transportes que es para el hayTransportesIdenticos()
+Faltaría hacer un método equals() para PaqueteOrdinario y PaqueteEspecial

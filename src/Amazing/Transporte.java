@@ -2,13 +2,14 @@ package Amazing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public abstract class Transporte {
 
-	protected String identificador;
-	protected double volumenMaximoDeCarga;
-	protected double valorPorViaje;
+	protected final String identificador;
+	protected final double volumenMaximoDeCarga;
+	protected final double valorPorViaje;
 	protected HashMap<Integer, Paquete> paquetes;
 
 	public Transporte(String identificador, double volumenMaximoDeCarga, double valorPorViaje) {
@@ -16,20 +17,50 @@ public abstract class Transporte {
 		this.volumenMaximoDeCarga = volumenMaximoDeCarga;
 		this.valorPorViaje = valorPorViaje;
 	}
+	
+	public boolean equals(Object other) {
+		boolean res = false;
+		
+		if (!(other instanceof Transporte))
+			return res;
+	 
+		Transporte other_t = (Transporte) other;
+		res = tienenCargaIdentica(other_t);
+		
+		return res;
+	}
+	
+	protected boolean tienenCargaIdentica(Transporte t) {
+		if (t == null)
+			return false;
+		
+		if (this.cantidadPaquetes() != t.cantidadPaquetes())
+			return false;
+	
+		boolean acumulador = true;
+		ArrayList<Paquete> listaPaquetes_t = t.listaPaquetes();
+		ArrayList<Paquete> listaPaquetes = this.listaPaquetes();
+		
+		Iterator<Paquete> iterator = listaPaquetes_t.iterator();
+		
+		while(iterator.hasNext()) {
+			
+			Paquete paqueteActual = (Paquete) iterator.next();
+			
+			acumulador &= listaPaquetes.contains(paqueteActual);
+			
+		}
+		
+		return acumulador;
+	}
 
-	double calcularPrecioViaje() {
-		if (this.cantidadPaquetes() == 0)
-			return 0;
-		return valorPorViaje;
-	};
+	abstract double calcularPrecioViaje();
 
 	void cargarPaquete(Paquete p) {
 
 		int identificadorPaquete = p.obtenerIdentificador();
 
-		Paquete pYaExiste = buscarPaquete(identificadorPaquete);
-
-		if (pYaExiste == null) {
+		if (!(paquetes.containsKey(identificadorPaquete))) {
 			paquetes.put(identificadorPaquete, p);
 		}
 
@@ -51,8 +82,14 @@ public abstract class Transporte {
 		
 	}
 	
-	private Paquete buscarPaquete(int identificador) {
-		return paquetes.get(identificador);
+	protected ArrayList<Paquete> listaPaquetes(){
+		ArrayList<Paquete> paq = new ArrayList<Paquete>();
+		for (Map.Entry<Integer, Paquete> p: paquetes.entrySet()) {
+			
+			Paquete paquete = p.getValue();
+			paq.add(paquete);
+		}
+		return paq;
 	}
 
 	protected boolean puedeLlevarEstePaquete(Paquete p) {
