@@ -71,7 +71,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 		Pedido pedido = new Pedido(numPedido, dni, cliente, direccion);
 
-		pedidos.put(dni, pedido);
+		pedidos.put(numPedido, pedido);
 		return numPedido;
 
 	}
