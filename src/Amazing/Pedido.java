@@ -20,7 +20,21 @@ public class Pedido {
 		this.direccion = direccion;
 	}
 	
-	public double calcularPrecio() {return 0;}
+	public double calcularPrecio() {
+		if (carritoPaquetesComprados == null) {
+			System.out.println("El pedido tiene el carrito vacío");
+			return 0;
+		}
+		
+		for (int codigo : carritoPaquetesComprados) {
+			
+			//NO ME ACUERDO COM HACER EL FOREACH
+			//plis hace éste así yo veo que onda y hago los demas
+			
+		}
+		
+		return 0;
+		}
 	
 	public void entregar() {estado = true;}
 
