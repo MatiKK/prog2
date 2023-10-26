@@ -26,7 +26,8 @@ public class Pedido {
 
 	public String consultarEstado() {return "";}
 	
-	public void agregarPaqueteOrdinario(int identificador, double volumen, double precio, double costoDeEnvio) {
+	public void agregarPaquete(int identificador, double volumen, double precio, double costoDeEnvio) {
+		
 		int codPaquete = crearCodPaquete(identificador);
 		
 		Paquete paquete = new PaqueteOrdinario(codPaquete, volumen, precio, costoDeEnvio);  
@@ -35,7 +36,15 @@ public class Pedido {
 		carritoPaquetesComprados.put(codPaquete, paquete);
 	}
 	
-	public void agregarPaqueteEspecial(int identificador, double volumen, double precio, double porcentajeAdicional) {}
+	public void agregarPaquete(int identificador, double volumen, double precio, double porcentajeAdicional, double valorAdicional) {
+		
+		int codPaquete = crearCodPaquete(identificador);
+		
+		Paquete paquete = new PaqueteEspecial(codPaquete, volumen, precio, porcentajeAdicional, valorAdicional);  
+		
+		
+		carritoPaquetesComprados.put(codPaquete, paquete);
+	}
 	
 	private int crearCodPaquete (int cod) {
 		while (carritoPaquetesComprados.containsKey(cod))
