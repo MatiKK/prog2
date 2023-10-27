@@ -68,5 +68,9 @@ public class Pedido {
 	
 	
 	public boolean cerrado() {return cerrado;}
+
+	public Object obtenerDireccion() {
+		return direccion;
+	}
 	
 }

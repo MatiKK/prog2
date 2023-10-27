@@ -2,6 +2,7 @@ package Amazing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class EmpresaAmazing implements IEmpresa {
@@ -106,24 +107,64 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public double cerrarPedido(int codPedido) {
-		double costePedido = pedidos.get(codPedido).cerrar(); 
+		double costePedido = buscarPedido(codPedido).cerrar();
 		factura += costePedido;
 		return costePedido;
 	}
 
 	@Override
 	public String cargarTransporte(String patente) {
-		Transporte transporte = transportes.get(patente);
-		transporte.cargarPaquete(null);
-		//CARGAR TRANSPORTE NO ERA PASANDO UN PAQUETE A CARGAR???? AL PARECER HAY QUE VERIFICAR Y ELEGIR LOS PAQUETES AUTOMATICAMENTE
+
+		Transporte transporte = null;
+
+		try {
+			transporte = buscarTransporte(patente);
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return "El transporte fué cargado exitosamente";
+		if (transporte.noTienePaquetes())
+			return "";
+
+		StringBuilder carga = new StringBuilder();
+
+		ArrayList<Paquete> listaPaquetes = transporte.listaPaquetes();
+
+		for (Map.Entry<Integer, Pedido> p : pedidos.entrySet()) {
+
+			Pedido pedido = p.getValue();
+			Iterator<Paquete> paquetesIterador = listaPaquetes.iterator();
+			while (paquetesIterador.hasNext()) {
+
+				Paquete paquete = paquetesIterador.next();
+
+				if (pedido.tienesEstePaquete(paquete.obtenerIdentificador())) {
+
+					carga.append("+ [");
+					carga.append(p.getKey().toString());
+					carga.append(" - ");
+					carga.append(paquete.obtenerIdentificador());
+					carga.append("] ");
+					carga.append(pedido.obtenerDireccion());
+					carga.append("\n");
+				}
+			}
+		}
+		return carga.toString();
 	}
 
 	@Override
 	public double costoEntrega(String patente) {
 
-		Transporte t = buscarTransporte(patente);
+		Transporte t = null;
+
+		try {
+			t = buscarTransporte(patente);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		if (t == null || t.noTienePaquetes())
 			return 0; // error
@@ -149,8 +190,11 @@ public class EmpresaAmazing implements IEmpresa {
 		return false;
 	}
 
-	private Transporte buscarTransporte(String patente) {
-		return transportes.get(patente);
+	private Transporte buscarTransporte(String patente) throws Exception {
+		Transporte transporte = transportes.get(patente);
+		if (transporte == null)
+			throw new Exception("Transporte con patente " + patente + " no encontrado.");
+		return transporte;
 	}
 
 	private Pedido buscarPedido(int codPedido) {
