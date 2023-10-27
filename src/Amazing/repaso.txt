@@ -34,6 +34,6 @@ Orden O(1):
 
 
 
-//USAR STRING BUILDER
+/LISTO/USAR STRING BUILDER (para listar paquetes cargados)
 //USAR ITERADORES O FOREACH
 //APLICAR toString 

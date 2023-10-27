@@ -172,14 +172,19 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public double facturacionTotalPedidosCerrados() {
-		// TODO Auto-generated method stub
-		return 0;
+		return factura;
 	}
 
 	@Override
 	public boolean hayTransportesIdenticos() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = false;
+		for (Map.Entry<String, Transporte> t1 : transportes.entrySet()) {
+			for (Map.Entry<String, Transporte> t2 : transportes.entrySet()) {
+				res |= t1.equals(t2);
+			}
+		}
+		
+		return res;
 	}
 	
 
