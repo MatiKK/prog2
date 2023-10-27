@@ -3,6 +3,7 @@ package Amazing;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 public abstract class Transporte {
@@ -38,8 +39,8 @@ public abstract class Transporte {
 			return false;
 	
 		boolean acumulador = true;
-		ArrayList<Paquete> listaPaquetes_t = t.listaPaquetes();
-		ArrayList<Paquete> listaPaquetes = this.listaPaquetes();
+		LinkedList<Paquete> listaPaquetes_t = t.listaPaquetes();
+		LinkedList<Paquete> listaPaquetes = this.listaPaquetes();
 		
 		Iterator<Paquete> iterator = listaPaquetes_t.iterator();
 		
@@ -83,8 +84,8 @@ public abstract class Transporte {
 		
 	}
 	
-	protected ArrayList<Paquete> listaPaquetes(){
-		ArrayList<Paquete> paq = new ArrayList<Paquete>();
+	protected LinkedList<Paquete> listaPaquetes(){
+		LinkedList<Paquete> paq = new LinkedList<Paquete>();
 		for (Map.Entry<Integer, Paquete> p: paquetes.entrySet()) {
 			
 			Paquete paquete = p.getValue();

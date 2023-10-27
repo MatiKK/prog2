@@ -3,6 +3,7 @@ package Amazing;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class EmpresaAmazing implements IEmpresa {
@@ -122,7 +123,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 		StringBuilder carga = new StringBuilder();
 
-		ArrayList<Paquete> listaPaquetes = transporte.listaPaquetes();
+		LinkedList<Paquete> listaPaquetes = transporte.listaPaquetes();
 
 		for (Map.Entry<Integer, Pedido> p : pedidos.entrySet()) {
 
@@ -134,7 +135,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 				if (pedido.tienesEstePaquete(paquete.obtenerIdentificador())) {
 
-					carga.append("+ [");
+					listaPaquetes.remove(paquete);
 					carga.append(p.getKey().toString());
 					carga.append(" - ");
 					carga.append(paquete.obtenerIdentificador());
