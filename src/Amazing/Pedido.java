@@ -13,7 +13,8 @@ public class Pedido {
 	private String direccion;
 
 	private HashMap<Integer, Paquete> carritoPaquetesComprados;
-	private boolean estado = false;
+	private boolean entregado = false;
+	private boolean cerrado = false;
 	
 	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
 		this.numPedido = numPedido;
@@ -38,9 +39,9 @@ public class Pedido {
 		return precio;
 		}
 	
-	public void entregar() {estado = true;}
+	public void entregar() {if (cerrado) entregado = true;}
 
-	public boolean entregado() {return estado;}
+	public boolean entregado() {return entregado;}
 	
 	public void agregarPaquete(Paquete p) {
 		
@@ -59,5 +60,13 @@ public class Pedido {
 		return carritoPaquetesComprados.containsKey(codPaquete);
 		
 	}
+
+	public double cerrar() {
+		cerrado = true;
+		return calcularPrecio();
+	}
+	
+	
+	public boolean cerrado() {return cerrado;}
 	
 }

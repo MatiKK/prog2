@@ -11,6 +11,7 @@ public class EmpresaAmazing implements IEmpresa {
 	private HashMap<Integer, Pedido> pedidos;
 	private static int NUEVO_IDENTIFICADOR_PEDIDO = 1;
 	private static int NUEVO_IDENTIFICADOR_PAQUETE = 1;
+	private double factura = 0;
 
 	public EmpresaAmazing(String string) {
 		cuit = string;
@@ -105,14 +106,18 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public double cerrarPedido(int codPedido) {
-		// TODO Auto-generated method stub
-		return 0;
+		double costePedido = pedidos.get(codPedido).cerrar(); 
+		factura += costePedido;
+		return costePedido;
 	}
 
 	@Override
 	public String cargarTransporte(String patente) {
-		// TODO Auto-generated method stub
-		return null;
+		Transporte transporte = transportes.get(patente);
+		transporte.cargarPaquete(null);
+		//CARGAR TRANSPORTE NO ERA PASANDO UN PAQUETE A CARGAR???? AL PARECER HAY QUE VERIFICAR Y ELEGIR LOS PAQUETES AUTOMATICAMENTE
+		
+		return "El transporte fué cargado exitosamente";
 	}
 
 	@Override

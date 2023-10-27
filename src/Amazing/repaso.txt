@@ -8,21 +8,22 @@ Faltaría hacer un método equals() para PaqueteOrdinario y PaqueteEspecial
 ()Solicitar la carga de un transporte dado su patente.
 ()Devolver el listado de paquetes de un trasporte
 ()Devolver el monto a pagar de la empresa por el viaje de un transporte
-()Calcular el total de facturación de TODOS los pedidos
-()Devuelve los pedidos cerrados y cuyos paquetes no fueron entregados en su totalidad
-(LISTO)Los transportes Utilitarios cobran extra con 3 paquetes, no 10
 ()El listado de paquetes cargados se genera y se devuelve al cargar un transporte.
-()Se agrega una operación que cierre un pedido dado su código.
-	() Los transportes se cargan con paquetes de pedidos cerrados.
-	() La facturación total de los pedidos se hace con los pedidos cerrados.
-	() El listado de paquetes no entregados se los toma de los pedidos cerrados
-()Por pedido no necsariamente tiene que tener todos sus paquetes cargados en el mismo transporte.
-()Ver si dos transportes son identicos
+()Ver si dos transportes son identicos	
+(LISTO)Los transportes Utilitarios cobran extra con 3 paquetes, no 10
 ()Cuando cargamos un transporte, hay que devolver una lista de los paquetes haciendo un string donde cada linea sea un paquete:
 	 [ NroPedido - codPaquete ] dirección
 	 [ NroPedido - codPaquete ] dirección
 	 [ NroPedido - codPaquete ] dirección
-	
+() Los transportes se cargan con paquetes de pedidos cerrados.
+
+
+()Calcular el total de facturación de TODOS los pedidos
+()Devuelve los pedidos cerrados y cuyos paquetes no fueron entregados en su totalidad
+()Se agrega una operación que cierre un pedido dado su código.
+	() La facturación total de los pedidos se hace con los pedidos cerrados.
+	() El listado de paquetes no entregados se los toma de los pedidos cerrados
+()Por pedido no necsariamente tiene que tener todos sus paquetes cargados en el mismo transporte.
 
 
 Orden O(1):

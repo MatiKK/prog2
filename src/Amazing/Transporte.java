@@ -57,6 +57,7 @@ public abstract class Transporte {
 	abstract double calcularPrecioViaje();
 
 	void cargarPaquete(Paquete p) {
+		// AL PARECER HAY QUE ELEGIR NOSOTROS LOS PAQUETES Y TAMBIEN HACER ALGO PARA MARCAR PAQUETES CARGADOS Y NO CARGADOS
 
 		int identificadorPaquete = p.obtenerIdentificador();
 
