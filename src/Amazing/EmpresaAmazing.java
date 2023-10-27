@@ -102,10 +102,14 @@ public class EmpresaAmazing implements IEmpresa {
 	public double cerrarPedido(int codPedido) {
 		
 		Pedido pedido = buscarPedido(codPedido);
+		
+		if (pedido.cerrado())
+			throw new Error("Paquete ya cerrado");
+		
 		double costePedido = pedido.cerrar();
 		factura += costePedido;
 						
-		// Meter los paquetes del pedido y meterlos en transportes que puedan llevarlos
+		// Meter los paquetes del pedido en transportes que puedan llevarlos
 		
 		for (Map.Entry<Integer,Paquete> paquetes: pedido.carrito().entrySet()) {
 			
@@ -114,13 +118,12 @@ public class EmpresaAmazing implements IEmpresa {
 			for(Map.Entry<String,Transporte> transporte: transportes.entrySet()) {
 
 				Transporte t = transporte.getValue();
-				if (t.puedeLlevarEstePaquete(p))
+				if (t.puedeLlevarEstePaquete(p)) {
 					t.cargarPaquete(p);
+					break;
+				}
 			}
 		}
-			
-		
-		
 		
 		return costePedido;
 	}
