@@ -20,6 +20,9 @@ public class Pedido {
 	
 	
 	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
+		
+		this.carritoPaquetesComprados = new HashMap<Integer,Paquete>();
+		
 		this.numPedido = numPedido;
 		this.dniCliente= dniCliente;
 		this.nombreCliente = nombreCliente;

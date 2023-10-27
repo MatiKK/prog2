@@ -14,6 +14,8 @@ public abstract class Transporte {
 	protected HashMap<Integer, Paquete> paquetes;
 
 	public Transporte(String identificador, double volumenMaximoDeCarga, double valorPorViaje) {
+		
+		this.paquetes = new HashMap<Integer,Paquete>();
 		this.identificador = identificador;
 		this.volumenMaximoDeCarga = volumenMaximoDeCarga;
 		this.valorPorViaje = valorPorViaje;

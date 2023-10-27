@@ -17,6 +17,8 @@ public class EmpresaAmazing implements IEmpresa {
 
 	public EmpresaAmazing(String string) {
 		cuit = string;
+		this.transportes = new HashMap<String, Transporte>();
+		this.pedidos = new HashMap<Integer, Pedido>();
 	}
 
 	private int generarNuevoIdentificadorDePedido() {
