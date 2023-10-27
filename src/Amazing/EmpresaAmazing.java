@@ -21,6 +21,10 @@ public class EmpresaAmazing implements IEmpresa {
 		this.pedidos = new HashMap<Integer, Pedido>();
 	}
 
+	public String toString() {
+		return cuit.toString();
+		}
+	
 	private int generarNuevoIdentificadorDePedido() {
 		return NUEVO_IDENTIFICADOR_PEDIDO++;
 	}
