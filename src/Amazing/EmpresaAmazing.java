@@ -100,8 +100,28 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public double cerrarPedido(int codPedido) {
-		double costePedido = buscarPedido(codPedido).cerrar();
+		
+		Pedido pedido = buscarPedido(codPedido);
+		double costePedido = pedido.cerrar();
 		factura += costePedido;
+						
+		// Meter los paquetes del pedido y meterlos en transportes que puedan llevarlos
+		
+		for (Map.Entry<Integer,Paquete> paquetes: pedido.carrito().entrySet()) {
+			
+			Paquete p = paquetes.getValue();
+			
+			for(Map.Entry<String,Transporte> transporte: transportes.entrySet()) {
+
+				Transporte t = transporte.getValue();
+				if (t.puedeLlevarEstePaquete(p))
+					t.cargarPaquete(p);
+			}
+		}
+			
+		
+		
+		
 		return costePedido;
 	}
 

@@ -117,7 +117,7 @@ public abstract class Transporte {
 	}
 	
 	protected boolean noTienePaquetes() {
-		return this.cantidadPaquetes() == 0;
+		return this.paquetes.isEmpty();
 	}
 
 	void cargarPaquetes(Map<Integer, Pedido> pedidos) {}
