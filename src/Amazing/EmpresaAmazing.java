@@ -18,6 +18,14 @@ public class EmpresaAmazing implements IEmpresa {
 		cuit = string;
 	}
 
+	private int generarNuevoIdentificadorDePedido() {
+		return NUEVO_IDENTIFICADOR_PEDIDO++;
+	}
+
+	private int generarNuevoIdentificadorDePaquete() {
+		return NUEVO_IDENTIFICADOR_PAQUETE++;
+	}
+
 	@Override
 	public void registrarAutomovil(String patente, int volMax, int valorViaje, int maxPaq) {
 		if (transportes.containsKey(patente))
@@ -51,14 +59,6 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 	}
 
-	private int generarNuevoIdentificadorDePedido() {
-		return NUEVO_IDENTIFICADOR_PEDIDO++;
-	}
-
-	private int generarNuevoIdentificadorDePaquete() {
-		return NUEVO_IDENTIFICADOR_PAQUETE++;
-	}
-
 	@Override
 	public int registrarPedido(String cliente, String direccion, int dni) {
 		int numPedido = generarNuevoIdentificadorDePedido();
@@ -85,14 +85,6 @@ public class EmpresaAmazing implements IEmpresa {
 		Pedido pedido = buscarPedido(codPedido);
 		pedido.agregarPaquete(p);
 		return p.obtenerIdentificador();
-	}
-
-	private ArrayList<Pedido> listaPedidos() {
-		ArrayList<Pedido> listaPedidos = new ArrayList<Pedido>();
-		for (Map.Entry<Integer, Pedido> p : pedidos.entrySet()) {
-			listaPedidos.add(p.getValue());
-		}
-		return listaPedidos;
 	}
 
 	@Override
@@ -188,6 +180,15 @@ public class EmpresaAmazing implements IEmpresa {
 	public boolean hayTransportesIdenticos() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+
+	private ArrayList<Pedido> listaPedidos() {
+		ArrayList<Pedido> listaPedidos = new ArrayList<Pedido>();
+		for (Map.Entry<Integer, Pedido> p : pedidos.entrySet()) {
+			listaPedidos.add(p.getValue());
+		}
+		return listaPedidos;
 	}
 
 	private Transporte buscarTransporte(String patente) throws Exception {

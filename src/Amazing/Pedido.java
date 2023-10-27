@@ -69,7 +69,7 @@ public class Pedido {
 	
 	public boolean cerrado() {return cerrado;}
 
-	public Object obtenerDireccion() {
+	public String obtenerDireccion() {
 		return direccion;
 	}
 	
