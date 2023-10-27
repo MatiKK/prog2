@@ -55,8 +55,6 @@ public abstract class Transporte {
 	}
 
 	abstract double calcularPrecioViaje();
-	
-	
 
 	void cargarPaquete(Paquete p) {
 		// AL PARECER HAY QUE ELEGIR NOSOTROS LOS PAQUETES Y TAMBIEN HACER ALGO PARA MARCAR PAQUETES CARGADOS Y NO CARGADOS
@@ -121,4 +119,5 @@ public abstract class Transporte {
 		return this.cantidadPaquetes() == 0;
 	}
 
+	void cargarPaquetes(Map<Integer, Pedido> pedidos) {}
 }

@@ -11,10 +11,13 @@ public class Pedido {
 	private int dniCliente;
 	private String nombreCliente;
 	private String direccion;
-
-	private HashMap<Integer, Paquete> carritoPaquetesComprados;
 	private boolean entregado = false;
 	private boolean cerrado = false;
+	
+
+	private HashMap<Integer, Paquete> carritoPaquetesComprados;
+
+	
 	
 	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
 		this.numPedido = numPedido;
@@ -72,5 +75,7 @@ public class Pedido {
 	public String obtenerDireccion() {
 		return direccion;
 	}
-	
+	public HashMap <Integer, Paquete> carrito(){
+		return carritoPaquetesComprados;
+	}
 }
