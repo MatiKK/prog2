@@ -39,6 +39,10 @@ public abstract class Transporte {
 		
 		if (this.cantidadPaquetes() != t.cantidadPaquetes())
 			return false;
+		
+		if (this.cantidadPaquetes() == 0 || t.cantidadPaquetes() == 0) {
+			return false;
+		}
 	
 		boolean acumulador1 = true;
 		boolean acumulador2 = false;
