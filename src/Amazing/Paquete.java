@@ -2,10 +2,10 @@ package Amazing;
 
 public abstract class Paquete {
 
-	private int identificador;
-	private double volumen;
-	private double precio;
-	private boolean entregado = false;
+	protected int identificador;
+	protected double volumen;
+	protected double precio;
+	protected boolean entregado = false;
 	
 	public Paquete(int identificador, double volumen, double precio) {
 		this.identificador = identificador;
