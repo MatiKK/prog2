@@ -88,8 +88,6 @@ public class EmpresaAmazing implements IEmpresa {
 
 	private int agregarPaquete(int codPedido, Paquete p) {
 		Pedido pedido = buscarPedido(codPedido);
-		if (pedido == null)
-			throw new RuntimeException("Pedido inexistente");
 		
 		pedido.agregarPaquete(p);
 		return p.obtenerIdentificador();
