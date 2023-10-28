@@ -15,14 +15,16 @@ public abstract class Paquete {
 	}
 	
 	public boolean equals(Object other) {
-	
+		boolean res = true;
+		
 		if (!(other instanceof Paquete))
 			return false;
 		
 		Paquete p = (Paquete) other;
 		
-		return this.volumen == p.calcularVolumen() &&
+		res= this.volumen == p.calcularVolumen() &&
 				this.precio == p.calcularPrecio();
+		return res;
 		
 	}
 	
@@ -31,9 +33,7 @@ public abstract class Paquete {
 		return (int)volumen * 10 + (int)precio * 2 + 5000;
 		
 	}
-	
-	
-	
+		
 	public int obtenerIdentificador() {
 		return this.identificador;
 	}

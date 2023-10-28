@@ -40,21 +40,28 @@ public abstract class Transporte {
 		if (this.cantidadPaquetes() != t.cantidadPaquetes())
 			return false;
 	
-		boolean acumulador = true;
+		boolean acumulador1 = true;
+		boolean acumulador2 = false;
 		LinkedList<Paquete> listaPaquetes_t = t.listaPaquetes();
 		LinkedList<Paquete> listaPaquetes = this.listaPaquetes();
 		
-		Iterator<Paquete> iterator = listaPaquetes_t.iterator();
+		Iterator<Paquete> iterator_t = listaPaquetes_t.iterator();
+
 		
-		while(iterator.hasNext()) {
+		while(iterator_t.hasNext()) {
 			
-			Paquete paqueteActual = (Paquete) iterator.next();
+			Paquete paqueteActual_t = (Paquete) iterator_t.next();
+			Iterator<Paquete> iterator = listaPaquetes.iterator();
+			while (iterator.hasNext()) {
+				Paquete paqueteActual = (Paquete) iterator.next();
+				acumulador2 |= paqueteActual.equals(paqueteActual_t);
+			}
 			
-			acumulador &= listaPaquetes.contains(paqueteActual);
+			acumulador1 &= acumulador2;
 			
 		}
 		
-		return acumulador;
+		return acumulador1;
 	}
 
 	abstract double calcularPrecioViaje();
