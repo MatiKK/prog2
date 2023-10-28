@@ -51,7 +51,7 @@ public class EmpresaAmazing implements IEmpresa {
 		else {
 			Transporte util = new Utilitario(patente, volMax, valorViaje, valorExtra);
 			transportes.put(patente, util);
-			System.out.println("El transporte utilitario fué agregado exitosamente");
+			System.out.println("El transporte utilitario fue agregado exitosamente");
 		}
 	}
 
@@ -62,7 +62,7 @@ public class EmpresaAmazing implements IEmpresa {
 		else {
 			Transporte util = new Camion(patente, volMax, valorViaje, adicXPaq);
 			transportes.put(patente, util);
-			System.out.println("El transporte utilitario fué agregado exitosamente");
+			System.out.println("El camion fue agregado exitosamente");
 		}
 	}
 
@@ -79,6 +79,7 @@ public class EmpresaAmazing implements IEmpresa {
 		int identificadorPaquete = generarNuevoIdentificadorDePaquete();
 		Paquete paquete = new PaqueteOrdinario(identificadorPaquete, volumen, precio, costoEnvio);
 		return agregarPaquete(codPedido, paquete);
+		//TIENE QUE GENERAR UNA EXCEPCIÓN SI EL PEDIDO NO EXISTE O YA FUÉ CERRADO
 	}
 
 	@Override
@@ -115,7 +116,6 @@ public class EmpresaAmazing implements IEmpresa {
 		double costePedido = pedido.cerrar();
 		factura += costePedido;
 						
-		// Meter los paquetes del pedido en transportes que puedan llevarlos
 		
 		for (Map.Entry<Integer,Paquete> paquetes: pedido.carrito().entrySet()) {
 			
@@ -131,6 +131,7 @@ public class EmpresaAmazing implements IEmpresa {
 			}
 		}
 		
+		pedido.entregar();
 		return costePedido;
 	}
 
@@ -174,6 +175,7 @@ public class EmpresaAmazing implements IEmpresa {
 				}
 			}
 		}
+		
 		return carga.toString();
 	}
 
@@ -196,8 +198,15 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public Map<Integer, String> pedidosNoEntregados() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		HashMap<Integer, String> lista = new HashMap <Integer, String>();
+		
+		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()) {
+			Pedido p = pedido.getValue();
+			if (!p.entregado() && p.cerrado()) 
+				lista.put(pedido.getKey(), p.cliente());
+		}
+		return lista;
 	}
 
 	@Override

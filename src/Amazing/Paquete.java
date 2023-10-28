@@ -5,6 +5,7 @@ public abstract class Paquete {
 	private int identificador;
 	private double volumen;
 	private double precio;
+	private boolean entregado = false;
 	
 	public Paquete(int identificador, double volumen, double precio) {
 		this.identificador = identificador;
@@ -23,10 +24,12 @@ public abstract class Paquete {
 	}
 
 	public boolean fueEntregado() {
-		// TODO Auto-generated method stub
-		return false;
+		return entregado;
 	}
-
+	
+	public void entregar() {
+		entregado = true;
+	}
 
 
 	public double calcularPrecio() {

@@ -43,11 +43,24 @@ public class Pedido {
 		}
 		
 		return precio;
-		}
+	}
 	
-	public void entregar() {if (cerrado) entregado = true;}
+	public void entregar() {
+		if (cerrado) {
+			boolean aux = true;
+			for (Map.Entry<Integer, Paquete> paquete : carrito().entrySet()) {
+				aux &=paquete.getValue().fueEntregado();
+			}
+			if (aux){
+				entregado = true;
+			}
+		}
+		
+	}
 
-	public boolean entregado() {return entregado;}
+	public boolean entregado() {
+		return entregado;
+	}
 	
 	public void agregarPaquete(Paquete p) {
 		
@@ -80,5 +93,13 @@ public class Pedido {
 	}
 	public HashMap <Integer, Paquete> carrito(){
 		return carritoPaquetesComprados;
+	}
+
+	public String cliente() {
+		return nombreCliente;
+	}
+	
+	public int cantPaquetesCarrito() {
+		return carritoPaquetesComprados.size();
 	}
 }
