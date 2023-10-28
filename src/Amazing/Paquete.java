@@ -3,8 +3,8 @@ package Amazing;
 public abstract class Paquete {
 
 	protected int identificador;
-	protected double volumen;
-	protected double precio;
+	protected final double volumen;
+	protected final double precio;
 	protected boolean entregado = false;
 	protected boolean cerrado = false;
 	
@@ -13,6 +13,26 @@ public abstract class Paquete {
 		this.volumen = volumen;
 		this.precio = precio;
 	}
+	
+	public boolean equals(Object other) {
+	
+		if (!(other instanceof Paquete))
+			return false;
+		
+		Paquete p = (Paquete) other;
+		
+		return this.volumen == p.calcularVolumen() &&
+				this.precio == p.calcularPrecio();
+		
+	}
+	
+	public int hashCode() {
+		
+		return (int)volumen * 10 + (int)precio * 2 + 5000;
+		
+	}
+	
+	
 	
 	public int obtenerIdentificador() {
 		return this.identificador;
