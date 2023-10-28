@@ -122,16 +122,21 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public String cargarTransporte(String patente) {
-		StringBuilder carga = new StringBuilder();
-
+		
 		Transporte transporte = buscarTransporte(patente);
+		
+		StringBuilder carga = new StringBuilder();
 		
 		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()) {
 
-			for (Map.Entry<Integer,Paquete> paquetes: pedido.getValue().carrito().entrySet()) {
+			Pedido p = pedido.getValue();
+			
+			for (Map.Entry<Integer,Paquete> paquetes: p.carrito().entrySet()) {
 
-				Paquete paquete = paquetes.getValue();				
+				Paquete paquete = paquetes.getValue();			
+				
 				if (transporte.puedeLlevarEstePaquete(paquete)) {
+					
 					transporte.cargarPaquete(paquete);
 					paquete.entregar();
 					
@@ -140,14 +145,11 @@ public class EmpresaAmazing implements IEmpresa {
 					carga.append(" - ");
 					carga.append(paquete.obtenerIdentificador());
 					carga.append(" ] ");
-					carga.append(pedido.getValue().obtenerDireccion());
+					carga.append(p.obtenerDireccion());
 					carga.append("\n");
 				}
 			}
 		}
-		
-		if (transporte.noTienePaquetes())
-			return "";
 
 		return carga.toString();
 	}

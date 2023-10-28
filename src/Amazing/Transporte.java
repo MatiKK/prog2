@@ -101,7 +101,7 @@ public abstract class Transporte {
 		double cargaActual = this.consultarCarga();
 		double cargaDelPaquete = p.calcularVolumen();
 		
-		return cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga && p.cerrado();
+		return !p.fueEntregado() && p.cerrado() && (cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga);
 	}
 	
 	int consultarCarga() {
@@ -122,5 +122,4 @@ public abstract class Transporte {
 		return this.paquetes.isEmpty();
 	}
 
-	void cargarPaquetes(Map<Integer, Pedido> pedidos) {}
 }

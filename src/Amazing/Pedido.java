@@ -35,6 +35,10 @@ public class Pedido {
 	}
 	
 	public void entregar() {
+		
+		if (entregado())
+			throw new RuntimeException("Pedido ya entregado");
+		
 		if (cerrado) {
 			boolean aux = true;
 			for (Map.Entry<Integer, Paquete> paquete : carrito().entrySet()) {
