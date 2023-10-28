@@ -96,11 +96,20 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public boolean quitarPaquete(int codPaquete) {
 		ArrayList<Pedido> pedidos = listaPedidos();
+		
+		boolean existeElPaquete = false;
+		boolean paqueteQuitado = false;
+		
 		for (Pedido pedido : pedidos) {
 			if (pedido.tienesEstePaquete(codPaquete))
-				return pedido.quitarPaquete(codPaquete);
+				existeElPaquete = true;
+				paqueteQuitado = pedido.quitarPaquete(codPaquete);
 		}
-		return false;
+		
+		if (!existeElPaquete)
+			throw new RuntimeException("Paquete inexistente.");
+		
+		return paqueteQuitado;
 	}
 
 	@Override
@@ -109,7 +118,7 @@ public class EmpresaAmazing implements IEmpresa {
 		Pedido pedido = buscarPedido(codPedido);
 		
 		if (pedido.cerrado())
-			throw new Error("Paquete ya cerrado");
+			throw new RuntimeException("Paquete ya cerrado");
 		
 		double costePedido = pedido.cerrar();
 		factura += costePedido;
@@ -156,10 +165,11 @@ public class EmpresaAmazing implements IEmpresa {
 				if (pedido.tienesEstePaquete(paquete.obtenerIdentificador())) {
 
 					//listaPaquetes.remove(paquete);
+					carga.append(" + [ ");
 					carga.append(p.getKey().toString());
 					carga.append(" - ");
 					carga.append(paquete.obtenerIdentificador());
-					carga.append("] ");
+					carga.append(" ] ");
 					carga.append(pedido.obtenerDireccion());
 					carga.append("\n");
 				}
@@ -210,7 +220,6 @@ public class EmpresaAmazing implements IEmpresa {
 		return res;
 	}
 	
-
 	private ArrayList<Pedido> listaPedidos() {
 		ArrayList<Pedido> listaPedidos = new ArrayList<Pedido>();
 		for (Map.Entry<Integer, Pedido> p : pedidos.entrySet()) {

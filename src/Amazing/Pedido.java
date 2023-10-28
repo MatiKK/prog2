@@ -14,7 +14,8 @@ public class Pedido {
 	private boolean entregado = false;
 	private boolean cerrado = false;
 	
-
+	private double precio = 0;
+	
 	private HashMap<Integer, Paquete> carritoPaquetesComprados;
 
 	
@@ -30,19 +31,7 @@ public class Pedido {
 	}
 	
 	public double calcularPrecio() {
-		
-		double precio = 0;
-		
-		for (Map.Entry<Integer,Paquete> paqueteHash: carritoPaquetesComprados.entrySet()) {
-			
-			Paquete paquete = paqueteHash.getValue();
-			
-			double precioPaquete = paquete.calcularPrecio();
-			
-			precio += precioPaquete;
-		}
-		
-		return precio;
+		return this.precio;
 	}
 	
 	public void entregar() {
@@ -66,13 +55,19 @@ public class Pedido {
 		
 		if (this.cerrado())
 			throw new RuntimeException("Pedido ya cerrado.");
-			
+		
+		precio += p.calcularPrecio();
 		carritoPaquetesComprados.put(p.obtenerIdentificador(), p);
 		
 	}
 	
 	boolean quitarPaquete(int identificadorPaquete) {
+		
 		Paquete p = carritoPaquetesComprados.remove(identificadorPaquete);
+		
+		if (p != null)
+			precio -= p.calcularPrecio();
+		
 		return p != null;
 	
 	}
