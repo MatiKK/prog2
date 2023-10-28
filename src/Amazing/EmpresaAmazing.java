@@ -186,8 +186,18 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public boolean hayTransportesIdenticos() {
 		boolean res = false;
-		for (Map.Entry<String, Transporte> t1 : transportes.entrySet()) {
-			for (Map.Entry<String, Transporte> t2 : transportes.entrySet()) {
+		
+		for (Map.Entry<String,Transporte> transportes1: transportes.entrySet()) {
+			
+			Transporte t1 = transportes1.getValue();
+			
+			for (Map.Entry<String,Transporte> transportes2: transportes.entrySet()) {
+				Transporte t2 = transportes2.getValue();
+				
+				// Si coincide la patente son el mismo y no cuenta
+				if (transportes1.getKey().equals(transportes2.getKey()))
+					continue;
+				
 				res |= t1.equals(t2);
 			}
 		}
@@ -202,7 +212,7 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		return listaPedidos;
 	}
-
+	
 	private Transporte buscarTransporte(String patente){
 		Transporte t = transportes.get(patente);
 		if (t == null) {
