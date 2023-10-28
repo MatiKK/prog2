@@ -18,7 +18,8 @@ public class PaqueteEspecial extends Paquete{
 
 		precio = precio * (1 + this.porcentajeAdicional/100);
 
-		if (this.calcularVolumen() > 3000)
+		// hijo de putaadsokafññl
+		if (this.calcularVolumen() >= 3000)
 			precio += valorAdicional;
 		
 		if (this.calcularVolumen() > 5000)
