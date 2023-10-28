@@ -101,7 +101,7 @@ public abstract class Transporte {
 		double cargaActual = this.consultarCarga();
 		double cargaDelPaquete = p.calcularVolumen();
 		
-		return cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga;
+		return cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga && p.cerrado();
 	}
 	
 	int consultarCarga() {

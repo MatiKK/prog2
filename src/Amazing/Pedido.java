@@ -80,6 +80,11 @@ public class Pedido {
 
 	public double cerrar() {
 		cerrado = true;
+		for (Map.Entry<Integer, Paquete> paquete : carrito().entrySet()) {
+			Paquete p = paquete.getValue();
+			p.cerrar();
+		}
+		
 		return calcularPrecio();
 	}
 	
