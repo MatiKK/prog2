@@ -2,11 +2,11 @@ package Amazing;
 
 public class Camion extends Transporte {
 
-	private final double valorExtraPorViaje;
+	private final int valorExtraPorPaquete;
 	
-	public Camion(String identificador, double volumenMaximoDeCarga, double valorPorViaje, double valorExtraPorViaje) {
+	public Camion(String identificador, int volumenMaximoDeCarga, int valorPorViaje, int valorExtraPorPaquete) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
-		this.valorExtraPorViaje = valorExtraPorViaje; 
+		this.valorExtraPorPaquete = valorExtraPorPaquete; 
 	}
 	
 	@Override
@@ -20,13 +20,9 @@ public class Camion extends Transporte {
 		return res;
 	}
 	
-	protected boolean tienenCargaIdentica(Transporte t) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	@Override
 	double calcularPrecioViaje() {
-		return this.valorPorViaje + this.valorExtraPorViaje * cantidadPaquetes();
+		return this.valorPorViaje + this.valorExtraPorPaquete * cantidadPaquetes();
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package Amazing;
 
-import java.util.Map;
-
 public class Automovil extends Transporte{
 
 	/* Esto también lo tiene Camion, tal vez crear clase Abstracta
@@ -10,7 +8,7 @@ public class Automovil extends Transporte{
 	private final int limiteMaximoDePaquetes;
 
 
-	public Automovil(String identificador, double volumenMaximoDeCarga, double valorPorViaje, int limiteMaximoDePaquetes) {
+	public Automovil(String identificador, int volumenMaximoDeCarga, int valorPorViaje, int limiteMaximoDePaquetes) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
 		this.limiteMaximoDePaquetes = limiteMaximoDePaquetes;
 		// TODO Auto-generated constructor stub
@@ -25,21 +23,6 @@ public class Automovil extends Transporte{
 		res = super.equals(other);
 
 		return res;
-	}
-
-
-	@Override
-	void cargarPaquetes(Map<Integer, Pedido> pedidos) {
-		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()){
-			if (pedido.getValue().cerrado()) {
-				paquetes = pedido.getValue().carrito();
-				for (Map.Entry<Integer, Paquete> paquete : paquetes.entrySet()) {
-					if (puedeLlevarEstePaquete(paquete.getValue())) {
-						this.paquetes.put(paquete.getValue().obtenerIdentificador(), paquete.getValue());
-					}
-				}
-			}
-		}
 	}
 
 	@Override

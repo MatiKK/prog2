@@ -9,11 +9,11 @@ import java.util.Map;
 public abstract class Transporte {
 
 	protected final String identificador;
-	protected final double volumenMaximoDeCarga;
-	protected final double valorPorViaje;
+	protected final int volumenMaximoDeCarga;
+	protected final int valorPorViaje;
 	protected HashMap<Integer, Paquete> paquetes;
 
-	public Transporte(String identificador, double volumenMaximoDeCarga, double valorPorViaje) {
+	public Transporte(String identificador, int volumenMaximoDeCarga, int valorPorViaje) {
 		
 		this.paquetes = new HashMap<Integer,Paquete>();
 		this.identificador = identificador;
@@ -104,9 +104,9 @@ public abstract class Transporte {
 		return cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga;
 	}
 	
-	double consultarCarga() {
+	int consultarCarga() {
 
-		double cargaTotal = 0;
+		int cargaTotal = 0;
 		for (Map.Entry<Integer, Paquete> paquete : paquetes.entrySet()) {
 			cargaTotal += paquete.getValue().calcularVolumen();
 		}

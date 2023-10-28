@@ -2,11 +2,11 @@ package Amazing;
 
 public class Utilitario extends Transporte{
 
-	private final double valorExtraPorViaje;
+	private final int valorExtra;
 	
-	public Utilitario(String identificador, double volumenMaximoDeCarga, double valorPorViaje, double valorExtraPorViaje) {
+	public Utilitario(String identificador, int volumenMaximoDeCarga, int valorPorViaje, int valorExtra) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
-		this.valorExtraPorViaje = valorExtraPorViaje;
+		this.valorExtra = valorExtra;
 	}
 
 	@Override
@@ -21,14 +21,8 @@ public class Utilitario extends Transporte{
 	}
 	
 	@Override
-	protected boolean tienenCargaIdentica(Transporte t) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
 	double calcularPrecioViaje() {
-		return this.valorPorViaje * ((cantidadPaquetes() > 3)? valorExtraPorViaje : 1);
+		return this.valorPorViaje * ((cantidadPaquetes() > 3)? valorExtra : 1);
 	}
 
 }
