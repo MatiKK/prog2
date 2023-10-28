@@ -23,8 +23,8 @@ public class EmpresaAmazing implements IEmpresa {
 
 	public String toString() {
 		return cuit.toString();
-		}
-	
+	}
+
 	private int generarNuevoIdentificadorDePedido() {
 		return NUEVO_IDENTIFICADOR_PEDIDO++;
 	}
@@ -37,7 +37,7 @@ public class EmpresaAmazing implements IEmpresa {
 	public void registrarAutomovil(String patente, int volMax, int valorViaje, int maxPaq) {
 		if (transportes.containsKey(patente))
 			throw new RuntimeException("Transporte con patente " + patente + " ya existente.");
-		
+
 		Transporte auto = new Automovil(patente, volMax, valorViaje, maxPaq);
 		transportes.put(patente, auto);
 		System.out.println("El automovil fue agregado exitosamente");
@@ -47,7 +47,7 @@ public class EmpresaAmazing implements IEmpresa {
 	public void registrarUtilitario(String patente, int volMax, int valorViaje, int valorExtra) {
 		if (transportes.containsKey(patente))
 			throw new RuntimeException("Transporte con patente " + patente + " ya existente.");
-		
+
 		Transporte util = new Utilitario(patente, volMax, valorViaje, valorExtra);
 		transportes.put(patente, util);
 		System.out.println("El transporte utilitario fue agregado exitosamente");
@@ -57,7 +57,7 @@ public class EmpresaAmazing implements IEmpresa {
 	public void registrarCamion(String patente, int volMax, int valorViaje, int adicXPaq) {
 		if (transportes.containsKey(patente))
 			throw new RuntimeException("Transporte con patente " + patente + " ya existente.");
-		
+
 		Transporte util = new Camion(patente, volMax, valorViaje, adicXPaq);
 		transportes.put(patente, util);
 		System.out.println("El camion fue agregado exitosamente");
@@ -88,7 +88,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 	private int agregarPaquete(int codPedido, Paquete p) {
 		Pedido pedido = buscarPedido(codPedido);
-		
+
 		pedido.agregarPaquete(p);
 		return p.obtenerIdentificador();
 	}
@@ -101,74 +101,54 @@ public class EmpresaAmazing implements IEmpresa {
 			if (pedido.tienesEstePaquete(codPaquete))
 				return pedido.quitarPaquete(codPaquete);
 		}
-		
+
 		throw new RuntimeException("Paquete inexistente.");
 	}
 
 	@Override
 	public double cerrarPedido(int codPedido) {
-		
+
 		Pedido pedido = buscarPedido(codPedido);
-		
+
 		if (pedido.cerrado())
 			throw new RuntimeException("Paquete ya cerrado");
-		
+
 		double costePedido = pedido.cerrar();
 		factura += costePedido;
-						
-		
-		for (Map.Entry<Integer,Paquete> paquetes: pedido.carrito().entrySet()) {
-			
-			Paquete p = paquetes.getValue();
-			
-			for(Map.Entry<String,Transporte> transporte: transportes.entrySet()) {
 
-				Transporte t = transporte.getValue();
-				if (t.puedeLlevarEstePaquete(p)) {
-					t.cargarPaquete(p);
-					break;
-				}
-			}
-		}
-		
-		pedido.entregar();
+
 		return costePedido;
 	}
 
 	@Override
 	public String cargarTransporte(String patente) {
+		StringBuilder carga = new StringBuilder();
 
 		Transporte transporte = buscarTransporte(patente);
 		
-		if (transporte.noTienePaquetes())
-			return "";
+		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()) {
 
-		StringBuilder carga = new StringBuilder();
+			for (Map.Entry<Integer,Paquete> paquetes: pedido.getValue().carrito().entrySet()) {
 
-		LinkedList<Paquete> listaPaquetes = transporte.listaPaquetes();
-
-		for (Map.Entry<Integer, Pedido> p : pedidos.entrySet()) {
-
-			Pedido pedido = p.getValue();
-			Iterator<Paquete> paquetesIterador = listaPaquetes.iterator();
-			while (paquetesIterador.hasNext()) {
-
-				Paquete paquete = paquetesIterador.next();
-
-				if (pedido.tienesEstePaquete(paquete.obtenerIdentificador())) {
-
-					//listaPaquetes.remove(paquete);
+				Paquete paquete = paquetes.getValue();				
+				if (transporte.puedeLlevarEstePaquete(paquete)) {
+					transporte.cargarPaquete(paquete);
+					paquete.entregar();
+					
 					carga.append(" + [ ");
-					carga.append(p.getKey().toString());
+					carga.append(pedido.getKey().toString());
 					carga.append(" - ");
 					carga.append(paquete.obtenerIdentificador());
 					carga.append(" ] ");
-					carga.append(pedido.obtenerDireccion());
+					carga.append(pedido.getValue().obtenerDireccion());
 					carga.append("\n");
 				}
 			}
 		}
 		
+		if (transporte.noTienePaquetes())
+			return "";
+
 		return carga.toString();
 	}
 
@@ -176,7 +156,7 @@ public class EmpresaAmazing implements IEmpresa {
 	public double costoEntrega(String patente) {
 
 		Transporte t = buscarTransporte(patente);
-		
+
 		if (t.noTienePaquetes())
 			throw new RuntimeException("Transporte vacío.");
 
@@ -185,9 +165,9 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public Map<Integer, String> pedidosNoEntregados() {
-		
+
 		HashMap<Integer, String> lista = new HashMap <Integer, String>();
-		
+
 		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()) {
 			Pedido p = pedido.getValue();
 			if (!p.entregado() && p.cerrado()) 
@@ -209,10 +189,10 @@ public class EmpresaAmazing implements IEmpresa {
 				res |= t1.equals(t2);
 			}
 		}
-		
+
 		return res;
 	}
-	
+
 	private ArrayList<Pedido> listaPedidos() {
 		ArrayList<Pedido> listaPedidos = new ArrayList<Pedido>();
 		for (Map.Entry<Integer, Pedido> p : pedidos.entrySet()) {
@@ -235,7 +215,7 @@ public class EmpresaAmazing implements IEmpresa {
 			throw new RuntimeException("Transporte con patente " + codPedido + " inexistente.");
 		}
 		return p;
-	
+
 	}
 
 }
