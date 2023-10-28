@@ -96,20 +96,13 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public boolean quitarPaquete(int codPaquete) {
 		ArrayList<Pedido> pedidos = listaPedidos();
-		
-		boolean existeElPaquete = false;
-		boolean paqueteQuitado = false;
-		
+
 		for (Pedido pedido : pedidos) {
 			if (pedido.tienesEstePaquete(codPaquete))
-				existeElPaquete = true;
-				paqueteQuitado = pedido.quitarPaquete(codPaquete);
+				return pedido.quitarPaquete(codPaquete);
 		}
 		
-		if (!existeElPaquete)
-			throw new RuntimeException("Paquete inexistente.");
-		
-		return paqueteQuitado;
+		throw new RuntimeException("Paquete inexistente.");
 	}
 
 	@Override
