@@ -155,7 +155,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 				if (pedido.tienesEstePaquete(paquete.obtenerIdentificador())) {
 
-					listaPaquetes.remove(paquete);
+					//listaPaquetes.remove(paquete);
 					carga.append(p.getKey().toString());
 					carga.append(" - ");
 					carga.append(paquete.obtenerIdentificador());

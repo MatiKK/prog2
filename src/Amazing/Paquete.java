@@ -13,8 +13,6 @@ public abstract class Paquete {
 		this.precio = precio;
 	}
 	
-
-	
 	public int obtenerIdentificador() {
 		return this.identificador;
 	}
@@ -31,10 +29,6 @@ public abstract class Paquete {
 		entregado = true;
 	}
 
-
-	public double calcularPrecio() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public abstract double calcularPrecio();
 	
 }

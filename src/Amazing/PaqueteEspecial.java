@@ -9,16 +9,15 @@ public class PaqueteEspecial extends Paquete{
 		super(identificador, volumen, precio);
 		this.porcentajeAdicional = porcentajeAdicional;
 		this.valorAdicional = valorAdicional;
-		this.precio = precio + precio * porcentajeAdicional;
 	}
 
 	@Override
 	public double calcularPrecio() {
-
+		
 		double precio = this.precio;
-		
+
 		precio = precio * (1 + this.porcentajeAdicional/100);
-		
+
 		if (this.calcularVolumen() > 3000)
 			precio += valorAdicional;
 		

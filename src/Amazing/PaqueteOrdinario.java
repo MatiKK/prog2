@@ -11,7 +11,8 @@ public class PaqueteOrdinario extends Paquete{
 	
 	@Override
 	public double calcularPrecio() {
-		return precio + costoDeEnvio;
+
+		return this.precio + this.costoDeEnvio;
 	}
 	
 }
