@@ -36,34 +36,31 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public void registrarAutomovil(String patente, int volMax, int valorViaje, int maxPaq) {
 		if (transportes.containsKey(patente))
-			System.out.println("La patente ingresada ya existe");
-		else {
-			Transporte auto = new Automovil(patente, volMax, valorViaje, maxPaq);
-			transportes.put(patente, auto);
-			System.out.println("El automovil fue agregado exitosamente");
-		}
+			throw new RuntimeException("Transporte con patente " + patente + " ya existente.");
+		
+		Transporte auto = new Automovil(patente, volMax, valorViaje, maxPaq);
+		transportes.put(patente, auto);
+		System.out.println("El automovil fue agregado exitosamente");
 	}
 
 	@Override
 	public void registrarUtilitario(String patente, int volMax, int valorViaje, int valorExtra) {
 		if (transportes.containsKey(patente))
-			System.out.println("La patente ingresada ya existe");
-		else {
-			Transporte util = new Utilitario(patente, volMax, valorViaje, valorExtra);
-			transportes.put(patente, util);
-			System.out.println("El transporte utilitario fue agregado exitosamente");
-		}
+			throw new RuntimeException("Transporte con patente " + patente + " ya existente.");
+		
+		Transporte util = new Utilitario(patente, volMax, valorViaje, valorExtra);
+		transportes.put(patente, util);
+		System.out.println("El transporte utilitario fue agregado exitosamente");
 	}
 
 	@Override
 	public void registrarCamion(String patente, int volMax, int valorViaje, int adicXPaq) {
 		if (transportes.containsKey(patente))
-			System.out.println("La patente ingresada ya existe");
-		else {
-			Transporte util = new Camion(patente, volMax, valorViaje, adicXPaq);
-			transportes.put(patente, util);
-			System.out.println("El camion fue agregado exitosamente");
-		}
+			throw new RuntimeException("Transporte con patente " + patente + " ya existente.");
+		
+		Transporte util = new Camion(patente, volMax, valorViaje, adicXPaq);
+		transportes.put(patente, util);
+		System.out.println("El camion fue agregado exitosamente");
 	}
 
 	@Override
@@ -91,6 +88,9 @@ public class EmpresaAmazing implements IEmpresa {
 
 	private int agregarPaquete(int codPedido, Paquete p) {
 		Pedido pedido = buscarPedido(codPedido);
+		if (pedido == null)
+			throw new RuntimeException("Pedido inexistente");
+		
 		pedido.agregarPaquete(p);
 		return p.obtenerIdentificador();
 	}
@@ -138,15 +138,7 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public String cargarTransporte(String patente) {
 
-		Transporte transporte = null;
-
-		try {
-			transporte = buscarTransporte(patente);
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		Transporte transporte = buscarTransporte(patente);
 		
 		if (transporte.noTienePaquetes())
 			return "";
@@ -182,16 +174,10 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public double costoEntrega(String patente) {
 
-		Transporte t = null;
-
-		try {
-			t = buscarTransporte(patente);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (t == null || t.noTienePaquetes())
-			return 0; // error
+		Transporte t = buscarTransporte(patente);
+		
+		if (t.noTienePaquetes())
+			throw new RuntimeException("Transporte vacío.");
 
 		return t.calcularPrecioViaje();
 	}
@@ -235,15 +221,21 @@ public class EmpresaAmazing implements IEmpresa {
 		return listaPedidos;
 	}
 
-	private Transporte buscarTransporte(String patente) throws Exception {
-		Transporte transporte = transportes.get(patente);
-		if (transporte == null)
-			throw new Exception("Transporte con patente " + patente + " no encontrado.");
-		return transporte;
+	private Transporte buscarTransporte(String patente){
+		Transporte t = transportes.get(patente);
+		if (t == null) {
+			throw new RuntimeException("Transporte con patente " + patente + " inexistente.");
+		}
+		return t;
 	}
 
 	private Pedido buscarPedido(int codPedido) {
-		return pedidos.get(codPedido);
+		Pedido p = pedidos.get(codPedido);
+		if (p == null) {
+			throw new RuntimeException("Transporte con patente " + codPedido + " inexistente.");
+		}
+		return p;
+	
 	}
 
 }

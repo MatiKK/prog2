@@ -64,6 +64,9 @@ public class Pedido {
 	
 	public void agregarPaquete(Paquete p) {
 		
+		if (this.cerrado())
+			throw new RuntimeException("Pedido ya cerrado.");
+			
 		carritoPaquetesComprados.put(p.obtenerIdentificador(), p);
 		
 	}
