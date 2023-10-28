@@ -9,7 +9,7 @@ public interface IEmpresa {
 	 * datos correspondiente a todo transporte:
 	 *  - patente, 
 	 *  - volumen maximo de carga
-	 *  - valor del viaje (que cobrará la empresa)
+	 *  - valor del viaje (que cobrará a la empresa)
 	 *  
 	 * Además por ser Automovil se proporciona el dato:
 	 *  - cantidad maxima de paquetes que transporta
@@ -22,7 +22,7 @@ public interface IEmpresa {
 	 * Registra un nuevo transporte tipo Utilitario en el sistema con los  
 	 * datos correspondiente a todo transporte y además:
 	 * 
-	 *  - un valor extra que cobra a la empresa si superan los 3 paquetes.
+	 *  - un valor extra que cobra a la empresa si superan los 10 paquetes.
 	 * 
 	 * Si esa patente ya esta en el sistema se debe generar una  excepcion.
 	 */
@@ -95,8 +95,8 @@ public interface IEmpresa {
 	/**
 	 * quita un paquete del pedido dado su codigo unico de paquete.
 	 * 
-	 * Devuelve true si pudo quitar el paquete. si no lo encontró o 
-	 * el pedido ya esta finalizado, devuelve false.
+	 * Devuelve true si pudo quitar el paquete. 
+	 * si no lo encontró o  el pedido ya esta finalizado, devuelve false.
 	 * 
 	 * Demostrar la complejidad en terminos de O grande en el informe.
 	 */
@@ -125,6 +125,7 @@ public interface IEmpresa {
 	 * por ejemplo:
 	 *      " + [ 1002 - 101 ] Gutierrez 1147"
 	 *
+	 * Los paquetes que se cargan deben pertenecer a pedidos finaizados.
 	 * Si no se encontró ningún paquete para cargar, se debe devolver un string vacio.
 	 * 
 	 * Si esa patente no esta en el sistema se debe generar una  excepcion. 
@@ -140,8 +141,8 @@ public interface IEmpresa {
 	 * Una vez cargado, aunque no se haya podido completar, el transporte 
 	 * reparte los paquetes cargados.
 	 *  
-	 * Se devuelve el valor del viaje segun lo indicado en cada clase de transporte.
-	 * Cada clase de transporte tiene su forma de calcular el costo del viaje.
+	 * Se devuelve el valor del viaje segun lo indicado en cada tipo de transporte.
+	 * Cada tipo de transporte tiene su forma de calcular el costo del viaje.
 	 *  
 	 * Si esa patente no esta en el sistema se debe generar una excepcion.
 	 * Si el transporte no esta cargado genera un excepcion.
@@ -170,13 +171,14 @@ public interface IEmpresa {
 	/**
 	 * Se consideran transportes identicos a 2 transportes cargados con:
 	 *   - distinta patente, 
-	 *   - misma clase y 
+	 *   - mismo tipo y 
 	 *   - la misma carga.
 	 * Se considera misma carga al tener la misma cantidad de paquetes con las 
 	 * mismas caracteristicas:
 	 *   - mismo volumen, 
-	 *   - misma clase y 
-	 *   - mismo precio.
+	 *   - mismo tipo 
+	 *   - mismo precio y
+	 *   - mismos atributos según el tipo de Paquete
 	 *   VER EJEMPLO EN ENUNCIADO
 	 */
 	public boolean hayTransportesIdenticos();
