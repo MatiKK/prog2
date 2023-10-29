@@ -62,7 +62,17 @@ public class Pedido {
 		return entregado;
 	}
 
-	public void agregarPaquete(Paquete p) {
+	public void agregarPaquete(int identificadorPaquete, int volumen, int precio, int costoEnvio) {
+		Paquete paquete = new PaqueteOrdinario(identificadorPaquete, volumen, precio, costoEnvio);
+		agregarPaquete(paquete);
+	}
+
+	public void agregarPaquete(int identificadorPaquete, int volumen, int precio, int porcentaje, int adicional) {
+		Paquete paquete = new PaqueteEspecial(identificadorPaquete, volumen, precio, porcentaje, adicional);
+		agregarPaquete(paquete);
+	}
+
+	private void agregarPaquete(Paquete p) {
 
 		if (this.estaCerrado())
 			throw new RuntimeException("Pedido ya cerrado.");

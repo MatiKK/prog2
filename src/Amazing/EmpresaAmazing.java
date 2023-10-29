@@ -71,22 +71,19 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio) {
 		int identificadorPaquete = generarNuevoIdentificadorDePaquete();
-		Paquete paquete = new PaqueteOrdinario(identificadorPaquete, volumen, precio, costoEnvio);
-		return agregarPaquete(codPedido, paquete);
+		Pedido pedido = buscarPedido(codPedido);
+		pedido.agregarPaquete(identificadorPaquete, volumen, precio, costoEnvio);
+		return identificadorPaquete;
 	}
 
 	@Override
 	public int agregarPaquete(int codPedido, int volumen, int precio, int porcentaje, int adicional) {
 		int identificadorPaquete = generarNuevoIdentificadorDePaquete();
-		Paquete paquete = new PaqueteEspecial(identificadorPaquete, volumen, precio, porcentaje, adicional);
-		return agregarPaquete(codPedido, paquete);
+		Pedido pedido = buscarPedido(codPedido);
+		pedido.agregarPaquete(identificadorPaquete, volumen, precio, porcentaje, adicional);
+		return identificadorPaquete;
 	}
 
-	private int agregarPaquete(int codPedido, Paquete p) {
-		Pedido pedido = buscarPedido(codPedido);
-		pedido.agregarPaquete(p);
-		return p.obtenerIdentificador();
-	}
 
 	@Override
 	public boolean quitarPaquete(int codPaquete) {
