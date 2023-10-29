@@ -2,16 +2,11 @@ package Amazing;
 
 public class Automovil extends Transporte{
 
-	/* Esto también lo tiene Camion, tal vez crear clase Abstracta
-	 * TransporteConValorExtraPorViaje o sino queda así
-	 * */
 	private final int limiteMaximoDePaquetes;
-
 
 	public Automovil(String identificador, int volumenMaximoDeCarga, int valorPorViaje, int limiteMaximoDePaquetes) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
 		this.limiteMaximoDePaquetes = limiteMaximoDePaquetes;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

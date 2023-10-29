@@ -2,8 +2,6 @@ package Amazing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class EmpresaAmazing implements IEmpresa {
@@ -76,7 +74,6 @@ public class EmpresaAmazing implements IEmpresa {
 		int identificadorPaquete = generarNuevoIdentificadorDePaquete();
 		Paquete paquete = new PaqueteOrdinario(identificadorPaquete, volumen, precio, costoEnvio);
 		return agregarPaquete(codPedido, paquete);
-		//TIENE QUE GENERAR UNA EXCEPCIÓN SI EL PEDIDO NO EXISTE O YA FUÉ CERRADO
 	}
 
 	@Override
@@ -95,9 +92,9 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public boolean quitarPaquete(int codPaquete) {
-		ArrayList<Pedido> pedidos = listaPedidos();
-
-		for (Pedido pedido : pedidos) {
+		
+		for (Map.Entry<Integer,Pedido> p : pedidos.entrySet()) {
+			Pedido pedido = p.getValue();
 			if (pedido.tienesEstePaquete(codPaquete))
 				return pedido.quitarPaquete(codPaquete);
 		}
@@ -203,14 +200,6 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 
 		return res;
-	}
-
-	private ArrayList<Pedido> listaPedidos() {
-		ArrayList<Pedido> listaPedidos = new ArrayList<Pedido>();
-		for (Map.Entry<Integer, Pedido> p : pedidos.entrySet()) {
-			listaPedidos.add(p.getValue());
-		}
-		return listaPedidos;
 	}
 	
 	private Transporte buscarTransporte(String patente){

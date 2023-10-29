@@ -3,7 +3,6 @@ package Amazing;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 
 public abstract class Transporte {
@@ -46,8 +45,8 @@ public abstract class Transporte {
 	
 		boolean acumulador1 = true;
 		boolean acumulador2 = false;
-		LinkedList<Paquete> listaPaquetes_t = t.listaPaquetes();
-		LinkedList<Paquete> listaPaquetes = this.listaPaquetes();
+		ArrayList<Paquete> listaPaquetes_t = t.listaPaquetes();
+		ArrayList<Paquete> listaPaquetes = this.listaPaquetes();
 		
 		Iterator<Paquete> iterator_t = listaPaquetes_t.iterator();
 
@@ -97,14 +96,14 @@ public abstract class Transporte {
 		
 	}
 	
-	protected LinkedList<Paquete> listaPaquetes(){
-		LinkedList<Paquete> paq = new LinkedList<Paquete>();
+	protected ArrayList<Paquete> listaPaquetes(){
+		ArrayList<Paquete> listaPaquetes = new ArrayList<Paquete>();
 		for (Map.Entry<Integer, Paquete> p: paquetes.entrySet()) {
 			
 			Paquete paquete = p.getValue();
-			paq.add(paquete);
+			listaPaquetes.add(paquete);
 		}
-		return paq;
+		return listaPaquetes;
 	}
 
 	protected boolean puedeLlevarEstePaquete(Paquete p) {
@@ -112,7 +111,9 @@ public abstract class Transporte {
 		double cargaActual = this.consultarCarga();
 		double cargaDelPaquete = p.calcularVolumen();
 		
-		return !p.fueEntregado() && p.cerrado() && (cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga);
+		return !p.fueEntregado() &&
+				p.cerrado() &&
+				(cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga);
 	}
 	
 	int consultarCarga() {
@@ -126,7 +127,7 @@ public abstract class Transporte {
 	}
 
 	protected int cantidadPaquetes() {
-		return paquetes.size();
+		return this.paquetes.size();
 	}
 	
 	protected boolean noTienePaquetes() {
