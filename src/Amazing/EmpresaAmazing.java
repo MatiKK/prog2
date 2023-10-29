@@ -1,6 +1,5 @@
 package Amazing;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +37,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 		Transporte auto = new Automovil(patente, volMax, valorViaje, maxPaq);
 		transportes.put(patente, auto);
-		System.out.println("El automovil fue agregado exitosamente");
+		System.out.println("Automovil " + patente + " agregado.");
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 		Transporte util = new Utilitario(patente, volMax, valorViaje, valorExtra);
 		transportes.put(patente, util);
-		System.out.println("El transporte utilitario fue agregado exitosamente");
+		System.out.println("Utilitario " + patente + " agregado.");
 	}
 
 	@Override
@@ -58,7 +57,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 		Transporte util = new Camion(patente, volMax, valorViaje, adicXPaq);
 		transportes.put(patente, util);
-		System.out.println("El camion fue agregado exitosamente");
+		System.out.println("Camión" + patente + "agregado.");
 	}
 
 	@Override
@@ -85,20 +84,16 @@ public class EmpresaAmazing implements IEmpresa {
 
 	private int agregarPaquete(int codPedido, Paquete p) {
 		Pedido pedido = buscarPedido(codPedido);
-
 		pedido.agregarPaquete(p);
 		return p.obtenerIdentificador();
 	}
 
 	@Override
 	public boolean quitarPaquete(int codPaquete) {
-		
-		for (Map.Entry<Integer,Pedido> p : pedidos.entrySet()) {
-			Pedido pedido = p.getValue();
+		for (Pedido pedido : pedidos.values()) {
 			if (pedido.tienesEstePaquete(codPaquete))
 				return pedido.quitarPaquete(codPaquete);
 		}
-
 		throw new RuntimeException("Paquete inexistente.");
 	}
 
@@ -107,36 +102,32 @@ public class EmpresaAmazing implements IEmpresa {
 
 		Pedido pedido = buscarPedido(codPedido);
 
-		if (pedido.cerrado())
+		if (pedido.estaCerrado())
 			throw new RuntimeException("Paquete ya cerrado");
 
 		double costePedido = pedido.cerrar();
 		factura += costePedido;
-
 
 		return costePedido;
 	}
 
 	@Override
 	public String cargarTransporte(String patente) {
-		
+
 		Transporte transporte = buscarTransporte(patente);
-		
+
 		StringBuilder carga = new StringBuilder();
-		
+
 		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()) {
 
 			Pedido p = pedido.getValue();
-			
-			for (Map.Entry<Integer,Paquete> paquetes: p.carrito().entrySet()) {
 
-				Paquete paquete = paquetes.getValue();			
-				
+			for (Paquete paquete : p.carrito().values()) {
+
 				if (transporte.puedeLlevarEstePaquete(paquete)) {
-					
+
 					transporte.cargarPaquete(paquete);
 					paquete.entregar();
-					
 					carga.append(" + [ ");
 					carga.append(pedido.getKey().toString());
 					carga.append(" - ");
@@ -165,12 +156,12 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public Map<Integer, String> pedidosNoEntregados() {
 
-		HashMap<Integer, String> lista = new HashMap <Integer, String>();
+		Map<Integer, String> lista = new HashMap<Integer, String>();
 
 		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()) {
 			Pedido p = pedido.getValue();
-			if (!p.entregado() && p.cerrado()) 
-				lista.put(pedido.getKey(), p.cliente());
+			if (!p.fueEntregado() && p.estaCerrado())
+				lista.put(pedido.getKey(), p.obtenerNombreCliente());
 		}
 		return lista;
 	}
@@ -182,27 +173,28 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public boolean hayTransportesIdenticos() {
-		boolean res = false;
-		
-		for (Map.Entry<String,Transporte> transportes1: transportes.entrySet()) {
-			
+
+		boolean hayTransportesIdenticos = false;
+
+		for (Map.Entry<String, Transporte> transportes1 : transportes.entrySet()) {
+
 			Transporte t1 = transportes1.getValue();
-			
-			for (Map.Entry<String,Transporte> transportes2: transportes.entrySet()) {
+
+			for (Map.Entry<String, Transporte> transportes2 : transportes.entrySet()) {
+
 				Transporte t2 = transportes2.getValue();
-				
+
 				// Si coincide la patente son el mismo y no cuenta
 				if (transportes1.getKey().equals(transportes2.getKey()))
 					continue;
-				
-				res |= t1.equals(t2);
+
+				hayTransportesIdenticos |= t1.equals(t2);
 			}
 		}
-
-		return res;
+		return hayTransportesIdenticos;
 	}
-	
-	private Transporte buscarTransporte(String patente){
+
+	private Transporte buscarTransporte(String patente) {
 		Transporte t = transportes.get(patente);
 		if (t == null) {
 			throw new RuntimeException("Transporte con patente " + patente + " inexistente.");

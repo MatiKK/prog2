@@ -5,35 +5,32 @@ public abstract class Paquete {
 	protected int identificador;
 	protected final int volumen;
 	protected final int precio;
-	protected boolean entregado = false;
 	protected boolean cerrado = false;
-	
+	protected boolean entregado = false;
+
 	public Paquete(int identificador, int volumen, int precio) {
 		this.identificador = identificador;
 		this.volumen = volumen;
 		this.precio = precio;
 	}
-	
+
 	public boolean equals(Object other) {
-		boolean res = true;
-		
+
 		if (!(other instanceof Paquete))
 			return false;
-		
+
 		Paquete p = (Paquete) other;
-		
-		res= this.calcularVolumen() == p.calcularVolumen() &&
+
+		return this.calcularVolumen() == p.calcularVolumen() &&
 				this.calcularPrecio() == p.calcularPrecio();
-		return res;
-		
 	}
-	
+
 	public int hashCode() {
-		
-		return (int)volumen * 10 + (int)precio * 2 + 5000;
-		
+		return this.volumen * 10 + this.precio * 2 + 5003;
 	}
-		
+
+	public abstract double calcularPrecio();
+
 	public int obtenerIdentificador() {
 		return this.identificador;
 	}
@@ -45,19 +42,17 @@ public abstract class Paquete {
 	public boolean fueEntregado() {
 		return entregado;
 	}
-	
+
 	public void entregar() {
 		entregado = true;
 	}
-	
+
 	public void cerrar() {
 		cerrado = true;
 	}
-	
-	public boolean cerrado() {
+
+	public boolean estaCerrado() {
 		return cerrado;
 	}
 
-	public abstract double calcularPrecio();
-	
 }

@@ -11,13 +11,11 @@ public class Automovil extends Transporte{
 
 	@Override
 	public boolean equals(Object other) {
-		boolean res = false;
+		
 		if (!(other instanceof Automovil))
-			return res;
+			return false;
 
-		res = super.equals(other);
-
-		return res;
+		return super.equals(other);
 	}
 
 	@Override

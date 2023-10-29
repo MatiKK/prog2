@@ -3,7 +3,6 @@ package Amazing;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 public abstract class Transporte {
 
@@ -13,123 +12,101 @@ public abstract class Transporte {
 	protected HashMap<Integer, Paquete> paquetes;
 
 	public Transporte(String identificador, int volumenMaximoDeCarga, int valorPorViaje) {
-		
-		this.paquetes = new HashMap<Integer,Paquete>();
+		this.paquetes = new HashMap<Integer, Paquete>();
 		this.identificador = identificador;
 		this.volumenMaximoDeCarga = volumenMaximoDeCarga;
 		this.valorPorViaje = valorPorViaje;
 	}
-	
+
+	@Override
 	public boolean equals(Object other) {
-		boolean res = false;
-		
+
 		if (!(other instanceof Transporte))
-			return res;
-	 
+			return false;
+
 		Transporte other_t = (Transporte) other;
-		res = tienenCargaIdentica(other_t);
-		
-		return res;
+
+		return tienenCargaIdentica(other_t);
 	}
-	
-	protected boolean tienenCargaIdentica(Transporte t) {
+
+	private boolean tienenCargaIdentica(Transporte t) {
 		if (t == null)
 			return false;
-		
+
+		if (this.noTienePaquetes() || t.noTienePaquetes())
+			return false;
+
 		if (this.cantidadPaquetes() != t.cantidadPaquetes())
 			return false;
-		
-		if (this.cantidadPaquetes() == 0 || t.cantidadPaquetes() == 0) {
-			return false;
-		}
-	
-		boolean acumulador1 = true;
-		boolean acumulador2 = false;
-		ArrayList<Paquete> listaPaquetes_t = t.listaPaquetes();
-		ArrayList<Paquete> listaPaquetes = this.listaPaquetes();
-		
-		Iterator<Paquete> iterator_t = listaPaquetes_t.iterator();
 
-		
-		while(iterator_t.hasNext()) {
-			
-			Paquete paqueteActual_t = (Paquete) iterator_t.next();
-			Iterator<Paquete> iterator = listaPaquetes.iterator();
-			while (iterator.hasNext()) {
-				Paquete paqueteActual = (Paquete) iterator.next();
-				acumulador2 |= paqueteActual.equals(paqueteActual_t);
-			}
-			
-			acumulador1 &= acumulador2;
-			
+		ArrayList<Paquete> listaPaquetes = this.listaPaquetes();
+		ArrayList<Paquete> listaPaquetes_t = t.listaPaquetes();
+
+		Iterator<Paquete> iteratorPaquetes_t = listaPaquetes_t.iterator();
+
+		while (iteratorPaquetes_t.hasNext()) {
+
+			Paquete paqueteActual_t = (Paquete) iteratorPaquetes_t.next();
+			if (!(listaPaquetes.contains(paqueteActual_t)))
+				return false;
+
 		}
-		
-		return acumulador1;
+		return true;
 	}
 
 	abstract double calcularPrecioViaje();
 
 	void cargarPaquete(Paquete p) {
-		// AL PARECER HAY QUE ELEGIR NOSOTROS LOS PAQUETES Y TAMBIEN HACER ALGO PARA MARCAR PAQUETES CARGADOS Y NO CARGADOS
 
 		int identificadorPaquete = p.obtenerIdentificador();
 
 		if (!(paquetes.containsKey(identificadorPaquete))) {
 			paquetes.put(identificadorPaquete, p);
 		}
-
 	}
-	
-	ArrayList<Paquete> paquetesNoEntregados(){
+
+	ArrayList<Paquete> paquetesNoEntregados() {
+
 		if (this.noTienePaquetes())
 			return null;
-		
+
 		ArrayList<Paquete> paquetesNoEntregados = new ArrayList<Paquete>();
-		
-		for (Map.Entry<Integer, Paquete> p: paquetes.entrySet()) {
-			
-			Paquete paquete = p.getValue();
+
+		for (Paquete paquete : listaPaquetes()) {
 			if (!paquete.fueEntregado())
 				paquetesNoEntregados.add(paquete);
 		}
 		return paquetesNoEntregados;
-		
 	}
-	
-	protected ArrayList<Paquete> listaPaquetes(){
-		ArrayList<Paquete> listaPaquetes = new ArrayList<Paquete>();
-		for (Map.Entry<Integer, Paquete> p: paquetes.entrySet()) {
-			
-			Paquete paquete = p.getValue();
-			listaPaquetes.add(paquete);
-		}
-		return listaPaquetes;
+
+	protected ArrayList<Paquete> listaPaquetes() {
+		return new ArrayList<Paquete>(paquetes.values());
 	}
 
 	protected boolean puedeLlevarEstePaquete(Paquete p) {
 
 		double cargaActual = this.consultarCarga();
 		double cargaDelPaquete = p.calcularVolumen();
-		
-		return !p.fueEntregado() &&
-				p.cerrado() &&
-				(cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga);
+
+		return !p.fueEntregado()
+				&& p.estaCerrado()
+				&& (cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga);
 	}
-	
+
 	int consultarCarga() {
 
 		int cargaTotal = 0;
-		for (Map.Entry<Integer, Paquete> paquete : paquetes.entrySet()) {
-			cargaTotal += paquete.getValue().calcularVolumen();
-		}
-		return cargaTotal;
 
+		for (Paquete paquete : listaPaquetes())
+			cargaTotal += paquete.calcularVolumen();
+
+		return cargaTotal;
 	}
 
 	protected int cantidadPaquetes() {
 		return this.paquetes.size();
 	}
-	
+
 	protected boolean noTienePaquetes() {
 		return this.paquetes.isEmpty();
 	}
