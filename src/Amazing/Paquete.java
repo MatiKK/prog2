@@ -3,12 +3,12 @@ package Amazing;
 public abstract class Paquete {
 
 	protected int identificador;
-	protected final double volumen;
-	protected final double precio;
+	protected final int volumen;
+	protected final int precio;
 	protected boolean entregado = false;
 	protected boolean cerrado = false;
 	
-	public Paquete(int identificador, double volumen, double precio) {
+	public Paquete(int identificador, int volumen, int precio) {
 		this.identificador = identificador;
 		this.volumen = volumen;
 		this.precio = precio;
@@ -22,8 +22,8 @@ public abstract class Paquete {
 		
 		Paquete p = (Paquete) other;
 		
-		res= this.volumen == p.calcularVolumen() &&
-				this.precio == p.calcularPrecio();
+		res= this.calcularVolumen() == p.calcularVolumen() &&
+				this.calcularPrecio() == p.calcularPrecio();
 		return res;
 		
 	}
@@ -38,7 +38,7 @@ public abstract class Paquete {
 		return this.identificador;
 	}
 
-	public double calcularVolumen() {
+	public int calcularVolumen() {
 		return this.volumen;
 	}
 

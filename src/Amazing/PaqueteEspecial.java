@@ -2,10 +2,10 @@ package Amazing;
 
 public class PaqueteEspecial extends Paquete{
 
-	private final double porcentajeAdicional;
-	private final double valorAdicional;
+	private final int porcentajeAdicional;
+	private final int valorAdicional;
 	
-	public PaqueteEspecial(int identificador, double volumen, double precio, double porcentajeAdicional, double valorAdicional) {
+	public PaqueteEspecial(int identificador, int volumen, int precio, int porcentajeAdicional, int valorAdicional) {
 		super(identificador, volumen, precio);
 		this.porcentajeAdicional = porcentajeAdicional;
 		this.valorAdicional = valorAdicional;
@@ -40,7 +40,7 @@ public class PaqueteEspecial extends Paquete{
 		
 		double precio = this.precio;
 
-		precio = precio * (1 + this.porcentajeAdicional/100);
+		precio = precio * (1 + (double) this.porcentajeAdicional/100);
 
 		// hijo de putaadsokafññl
 		if (this.calcularVolumen() >= 3000)

@@ -2,9 +2,9 @@ package Amazing;
 
 public class PaqueteOrdinario extends Paquete{
 
-	private final double costoDeEnvio;
+	private final int costoDeEnvio;
 	
-	public PaqueteOrdinario(int identificador, double volumen, double precio, double costoDeEnvio) {
+	public PaqueteOrdinario(int identificador, int volumen, int precio, int costoDeEnvio) {
 		super(identificador, volumen, precio);
 		this.costoDeEnvio = costoDeEnvio;
 	}
