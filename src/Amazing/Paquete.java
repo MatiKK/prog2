@@ -14,6 +14,19 @@ public abstract class Paquete {
 		this.precio = precio;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("Paquete n° ");
+		sb.append(this.obtenerIdentificador());
+		sb.append(". Volumen: "+this.calcularVolumen());
+		sb.append("- Precio: "+this.calcularPrecio());
+		sb.append('\n');
+		
+		return sb.toString();
+	}
+
+
+	@Override
 	public boolean equals(Object other) {
 
 		if (!(other instanceof Paquete))
@@ -25,6 +38,7 @@ public abstract class Paquete {
 				this.calcularPrecio() == p.calcularPrecio();
 	}
 
+	@Override
 	public int hashCode() {
 		return this.volumen * 10 + this.precio * 2 + 5003;
 	}

@@ -21,6 +21,19 @@ public class Pedido {
 		this.direccion = direccion;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Pedido n°" + numPedido + "\n");
+		sb.append("Paquetes:\n");
+
+		for (Paquete paquete : carrito().values()) {
+			sb.append(paquete.toString());
+		}
+
+		return sb.toString();
+	}
+
 	public double calcularPrecio() {
 		return this.precio;
 	}
@@ -32,7 +45,7 @@ public class Pedido {
 
 		if (this.estaCerrado()) {
 			boolean todosLosPaquetesSeEntregaron = true;
-			for (Paquete paquete: this.carrito().values()) {
+			for (Paquete paquete : this.carrito().values()) {
 				todosLosPaquetesSeEntregaron &= paquete.fueEntregado();
 			}
 			if (todosLosPaquetesSeEntregaron) {
@@ -71,7 +84,7 @@ public class Pedido {
 
 	public double cerrar() {
 		cerrado = true;
-		for (Paquete paquete: this.carrito().values()) {
+		for (Paquete paquete : this.carrito().values()) {
 			paquete.cerrar();
 		}
 		return calcularPrecio();

@@ -10,6 +10,11 @@ public class Automovil extends Transporte{
 	}
 
 	@Override
+	public String toString() {
+		return "Automovil " + identificador.toString();
+	}
+
+	@Override
 	public boolean equals(Object other) {
 		
 		if (!(other instanceof Automovil))

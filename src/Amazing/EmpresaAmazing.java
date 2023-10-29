@@ -37,7 +37,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 		Transporte auto = new Automovil(patente, volMax, valorViaje, maxPaq);
 		transportes.put(patente, auto);
-		System.out.println("Automovil " + patente + " agregado.");
+		System.out.println(auto + " agregado.");
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 		Transporte util = new Utilitario(patente, volMax, valorViaje, valorExtra);
 		transportes.put(patente, util);
-		System.out.println("Utilitario " + patente + " agregado.");
+		System.out.println(util + " agregado.");
 	}
 
 	@Override
@@ -55,9 +55,9 @@ public class EmpresaAmazing implements IEmpresa {
 		if (transportes.containsKey(patente))
 			throw new RuntimeException("Transporte con patente " + patente + " ya existente.");
 
-		Transporte util = new Camion(patente, volMax, valorViaje, adicXPaq);
-		transportes.put(patente, util);
-		System.out.println("Camión" + patente + "agregado.");
+		Transporte camion = new Camion(patente, volMax, valorViaje, adicXPaq);
+		transportes.put(patente, camion);
+		System.out.println(camion + " agregado.");
 	}
 
 	@Override
