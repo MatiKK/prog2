@@ -17,7 +17,7 @@ public class Utilitario extends Transporte {
 	@Override
 	public boolean equals(Object other) {
 		
-		if (!(other instanceof Automovil))
+		if (!(other instanceof Utilitario))
 			return false;
 
 		return super.equals(other);

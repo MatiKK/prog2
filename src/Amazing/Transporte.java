@@ -32,22 +32,20 @@ public abstract class Transporte {
 	private boolean tienenCargaIdentica(Transporte t) {
 		if (t == null)
 			return false;
-
 		if (this.noTienePaquetes() || t.noTienePaquetes())
 			return false;
-
 		if (this.cantidadPaquetes() != t.cantidadPaquetes())
 			return false;
 
 		ArrayList<Paquete> listaPaquetes = this.listaPaquetes();
-		ArrayList<Paquete> listaPaquetes_t = t.listaPaquetes();
 
-		Iterator<Paquete> iteratorPaquetes_t = listaPaquetes_t.iterator();
+		Iterator<Paquete> iteratorPaquetes_t = t.listaPaquetes().iterator();
 
 		while (iteratorPaquetes_t.hasNext()) {
 
-			Paquete paqueteActual_t = (Paquete) iteratorPaquetes_t.next();
-			if (!(listaPaquetes.contains(paqueteActual_t)))
+			Paquete paquete_t = (Paquete) iteratorPaquetes_t.next();
+
+			if (!(listaPaquetes.contains(paquete_t)))
 				return false;
 
 		}
@@ -88,9 +86,7 @@ public abstract class Transporte {
 		double cargaActual = this.consultarCarga();
 		double cargaDelPaquete = p.calcularVolumen();
 
-		return !p.fueEntregado()
-				&& p.estaCerrado()
-				&& (cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga);
+		return !p.fueEntregado() && p.estaCerrado() && (cargaActual + cargaDelPaquete <= this.volumenMaximoDeCarga);
 	}
 
 	int consultarCarga() {
