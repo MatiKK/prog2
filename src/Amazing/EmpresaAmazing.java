@@ -72,6 +72,10 @@ public class EmpresaAmazing implements IEmpresa {
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio) {
 		int identificadorPaquete = generarNuevoIdentificadorDePaquete();
 		Pedido pedido = buscarPedido(codPedido);
+		
+		if (pedido.estaCerrado())
+			throw new RuntimeException("Pedido ya cerrado");
+		
 		pedido.agregarPaquete(identificadorPaquete, volumen, precio, costoEnvio);
 		return identificadorPaquete;
 	}
@@ -80,16 +84,25 @@ public class EmpresaAmazing implements IEmpresa {
 	public int agregarPaquete(int codPedido, int volumen, int precio, int porcentaje, int adicional) {
 		int identificadorPaquete = generarNuevoIdentificadorDePaquete();
 		Pedido pedido = buscarPedido(codPedido);
+		
+		if (pedido.estaCerrado())
+			throw new RuntimeException("Pedido ya cerrado");
+		
 		pedido.agregarPaquete(identificadorPaquete, volumen, precio, porcentaje, adicional);
 		return identificadorPaquete;
 	}
 
-
 	@Override
 	public boolean quitarPaquete(int codPaquete) {
 		for (Pedido pedido : pedidos.values()) {
-			if (pedido.tienesEstePaquete(codPaquete))
+			
+			if (pedido.tienesEstePaquete(codPaquete)){
+				
+				if (pedido.estaCerrado())
+					throw new RuntimeException("Pedido ya cerrado");
+					
 				return pedido.quitarPaquete(codPaquete);
+			}
 		}
 		throw new RuntimeException("Paquete inexistente.");
 	}
@@ -100,7 +113,7 @@ public class EmpresaAmazing implements IEmpresa {
 		Pedido pedido = buscarPedido(codPedido);
 
 		if (pedido.estaCerrado())
-			throw new RuntimeException("Paquete ya cerrado");
+			throw new RuntimeException("Pedido ya cerrado");
 
 		double costePedido = pedido.cerrar();
 		factura += costePedido;
@@ -202,7 +215,7 @@ public class EmpresaAmazing implements IEmpresa {
 	private Pedido buscarPedido(int codPedido) {
 		Pedido p = pedidos.get(codPedido);
 		if (p == null) {
-			throw new RuntimeException("Transporte con patente " + codPedido + " inexistente.");
+			throw new RuntimeException("Pedido con identificador " + codPedido + " inexistente.");
 		}
 		return p;
 
