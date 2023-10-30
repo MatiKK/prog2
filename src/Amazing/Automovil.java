@@ -6,6 +6,9 @@ public class Automovil extends Transporte{
 
 	public Automovil(String identificador, int volumenMaximoDeCarga, int valorPorViaje, int limiteMaximoDePaquetes) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
+
+		if (limiteMaximoDePaquetes <= 0)
+			throw new RuntimeException("El límite de paquetes no puede ser nulo o negativo.");
 		this.limiteMaximoDePaquetes = limiteMaximoDePaquetes;
 	}
 

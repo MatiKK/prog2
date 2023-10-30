@@ -13,6 +13,9 @@ public class EmpresaAmazing implements IEmpresa {
 	private double factura = 0;
 
 	public EmpresaAmazing(String string) {
+		
+		if (string == null)
+			throw new RuntimeException("cuit no puede ser null");
 		cuit = string;
 		this.transportes = new HashMap<String, Transporte>();
 		this.pedidos = new HashMap<Integer, Pedido>();

@@ -12,6 +12,14 @@ public abstract class Transporte {
 	protected HashMap<Integer, Paquete> paquetes;
 
 	public Transporte(String identificador, int volumenMaximoDeCarga, int valorPorViaje) {
+		
+		if (identificador == null)
+			throw new RuntimeException("El identificador no puede ser null.");
+		if (volumenMaximoDeCarga <= 0)
+			throw new RuntimeException("El volumen máximo no puede ser nulo o negativo.");
+		if (valorPorViaje <= 0)
+			throw new RuntimeException("El valor por viaje no puede ser nulo o negativo.");
+		
 		this.paquetes = new HashMap<Integer, Paquete>();
 		this.identificador = identificador;
 		this.volumenMaximoDeCarga = volumenMaximoDeCarga;

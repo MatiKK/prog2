@@ -6,6 +6,9 @@ public class PaqueteOrdinario extends Paquete {
 
 	public PaqueteOrdinario(int identificador, int volumen, int precio, int costoDeEnvio) {
 		super(identificador, volumen, precio);
+
+		if (costoDeEnvio <= 0)
+			throw new RuntimeException("El costo de envío no puede ser nulo o negativo.");
 		this.costoDeEnvio = costoDeEnvio;
 	}
 

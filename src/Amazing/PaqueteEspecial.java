@@ -7,6 +7,11 @@ public class PaqueteEspecial extends Paquete {
 
 	public PaqueteEspecial(int identificador, int volumen, int precio, int porcentajeAdicional, int valorAdicional) {
 		super(identificador, volumen, precio);
+		
+
+		if (porcentajeAdicional <= 0 || valorAdicional <= 0)
+			throw new RuntimeException("valores adicionales impropios");
+
 		this.porcentajeAdicional = porcentajeAdicional;
 		this.valorAdicional = valorAdicional;
 	}

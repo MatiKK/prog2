@@ -6,6 +6,9 @@ public class Utilitario extends Transporte {
 
 	public Utilitario(String identificador, int volumenMaximoDeCarga, int valorPorViaje, int valorExtra) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
+
+		if (valorExtra <= 0)
+			throw new RuntimeException("El valor extra no puede ser nulo o negativo.");
 		this.valorExtra = valorExtra;
 	}
 

@@ -14,6 +14,14 @@ public class Pedido {
 	private double precio = 0;
 
 	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
+		
+		if (dniCliente <= 0)
+			throw new RuntimeException("Id de cliente inválido.");
+		if (nombreCliente == null)
+			throw new RuntimeException("El nombre del cliente no puede ser null.");
+		if (dniCliente <= 0)
+			throw new RuntimeException("La dirección no puede ser null.");
+		
 		this.carritoPaquetesComprados = new HashMap<Integer, Paquete>();
 		this.numPedido = numPedido;
 		this.dniCliente = dniCliente;

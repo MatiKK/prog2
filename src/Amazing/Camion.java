@@ -6,6 +6,10 @@ public class Camion extends Transporte {
 
 	public Camion(String identificador, int volumenMaximoDeCarga, int valorPorViaje, int valorExtraPorPaquete) {
 		super(identificador, volumenMaximoDeCarga, valorPorViaje);
+
+		if (valorExtraPorPaquete<= 0)
+			throw new RuntimeException("El valor extra por paquete no puede ser nulo o negativo.");
+		
 		this.valorExtraPorPaquete = valorExtraPorPaquete;
 	}
 

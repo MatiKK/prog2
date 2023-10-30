@@ -9,6 +9,13 @@ public abstract class Paquete {
 	protected boolean entregado = false;
 
 	public Paquete(int identificador, int volumen, int precio) {
+		
+		if (volumen <= 0)
+			throw new RuntimeException("El volumen no puede ser nulo o negativo.");
+
+		if (precio <= 0)
+			throw new RuntimeException("El precio no puede ser nulo o negativo.");
+		
 		this.identificador = identificador;
 		this.volumen = volumen;
 		this.precio = precio;
