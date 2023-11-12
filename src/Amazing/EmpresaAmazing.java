@@ -25,10 +25,12 @@ public class EmpresaAmazing implements IEmpresa {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Empresa Amazing CUIT ");
 		sb.append(cuit.toString());
+		sb.append("\n\nTransportes:\n");
 		for(Transporte t: transportes.values()) {
 			sb.append(t.toString());
 			sb.append('\n');
 		}
+		sb.append("\nPedidos:\n");
 		for(Pedido p: pedidos.values()) {
 			sb.append(p.toString());
 			sb.append('\n');

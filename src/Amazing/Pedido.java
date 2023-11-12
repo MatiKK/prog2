@@ -35,13 +35,17 @@ public class Pedido {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Pedido id: ");
 		sb.append(numPedido);
+		sb.append("\nEstado: ");
+		String estado = (fueEntregado()? "Cerrado y entregado" :
+			estaCerrado()? "Cerrado y no entregado" : "No cerrado");
+		sb.append(estado);
 		sb.append("\nCliente: ");
 		sb.append(nombreCliente.toString());
 		sb.append(" - ");
 		sb.append(dniCliente);
 		sb.append("\nDirección: ");
 		sb.append(direccion.toString());
-		sb.append("Paquetes:\n");
+		sb.append("\nPaquetes:\n");
 
 		for (Paquete paquete : this.carritoPaquetesComprados.values()) {
 			sb.append(paquete.toString());
