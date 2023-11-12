@@ -35,7 +35,7 @@ public class Pedido {
 		sb.append("Pedido n°" + numPedido + "\n");
 		sb.append("Paquetes:\n");
 
-		for (Paquete paquete : carrito().values()) {
+		for (Paquete paquete : this.carritoPaquetesComprados.values()) {
 			sb.append(paquete.toString());
 		}
 
@@ -53,7 +53,7 @@ public class Pedido {
 
 		if (this.estaCerrado()) {
 			boolean todosLosPaquetesSeEntregaron = true;
-			for (Paquete paquete : this.carrito().values()) {
+			for (Paquete paquete : this.carritoPaquetesComprados.values()) {
 				todosLosPaquetesSeEntregaron &= paquete.fueEntregado();
 			}
 			if (todosLosPaquetesSeEntregaron) {
@@ -90,6 +90,8 @@ public class Pedido {
 	}
 
 	boolean quitarPaquete(int identificadorPaquete) {
+		if (this.fueEntregado() || this.estaCerrado())
+			return false;
 		Paquete p = carritoPaquetesComprados.remove(identificadorPaquete);
 		if (p != null)
 			precio -= p.calcularPrecio();
@@ -102,7 +104,7 @@ public class Pedido {
 
 	public double cerrar() {
 		cerrado = true;
-		for (Paquete paquete : this.carrito().values()) {
+		for (Paquete paquete : this.carritoPaquetesComprados.values()) {
 			paquete.cerrar();
 		}
 		return calcularPrecio();
@@ -119,9 +121,26 @@ public class Pedido {
 	public int cantidadPaquetes() {
 		return carritoPaquetesComprados.size();
 	}
-
-	public HashMap<Integer, Paquete> carrito() {
-		return this.carritoPaquetesComprados;
+	
+	public String cargarEnTransporte(Transporte t) {
+		
+		StringBuilder sb = new StringBuilder();
+		for(Paquete p: this.carritoPaquetesComprados.values()) {
+			if (t.puedeLlevarEstePaquete(p)) {
+				p.entregar();
+				t.cargarPaquete(p);
+				
+				sb.append(" + [ ");
+				sb.append(this.numPedido);
+				sb.append(" - ");
+				sb.append(p.obtenerIdentificador());
+				sb.append(" ] ");
+				sb.append(this.direccion);
+				sb.append('\n');
+				
+			}
+		}
+		return sb.toString();
 	}
 
 }

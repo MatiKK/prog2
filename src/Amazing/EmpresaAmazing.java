@@ -96,14 +96,10 @@ public class EmpresaAmazing implements IEmpresa {
 	public boolean quitarPaquete(int codPaquete) {
 		for (Pedido pedido : pedidos.values()) {
 			
-			if (pedido.tienesEstePaquete(codPaquete)){
-				
-				if (pedido.estaCerrado())
-					throw new RuntimeException("Pedido ya cerrado");
-					
+			if (pedido.tienesEstePaquete(codPaquete))
 				return pedido.quitarPaquete(codPaquete);
-			}
 		}
+		
 		throw new RuntimeException("Paquete inexistente.");
 	}
 
@@ -128,24 +124,9 @@ public class EmpresaAmazing implements IEmpresa {
 
 		StringBuilder carga = new StringBuilder();
 
-		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()) {
-
-			Pedido p = pedido.getValue();
-
-			for (Paquete paquete : p.carrito().values()) {
-
-				if (transporte.puedeLlevarEstePaquete(paquete)) {
-
-					transporte.cargarPaquete(paquete);
-					paquete.entregar();
-					carga.append(" + [ ");
-					carga.append(pedido.getKey().toString());
-					carga.append(" - ");
-					carga.append(paquete.obtenerIdentificador());
-					carga.append(" ] ");
-					carga.append(p.obtenerDireccion());
-					carga.append("\n");
-				}
+		for (Pedido p: pedidos.values()) {
+			if (p.estaCerrado()) {
+				carga.append(p.cargarEnTransporte(transporte));
 			}
 		}
 
