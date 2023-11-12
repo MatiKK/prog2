@@ -11,6 +11,7 @@ public class Pedido {
 	private boolean cerrado = false;
 	private boolean entregado = false;
 	private HashMap<Integer, Paquete> carritoPaquetesComprados;
+	private int cantidadPaquetesEntregados;
 	private double precio = 0;
 
 	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
@@ -52,22 +53,6 @@ public class Pedido {
 
 	public double calcularPrecio() {
 		return this.precio;
-	}
-
-	public void entregar() {
-
-		if (fueEntregado())
-			throw new RuntimeException("Pedido ya entregado");
-
-		if (this.estaCerrado()) {
-			boolean todosLosPaquetesSeEntregaron = true;
-			for (Paquete paquete : this.carritoPaquetesComprados.values()) {
-				todosLosPaquetesSeEntregaron &= paquete.fueEntregado();
-			}
-			if (todosLosPaquetesSeEntregaron) {
-				entregado = true;
-			}
-		}
 	}
 
 	public boolean estaCerrado() {
@@ -118,10 +103,6 @@ public class Pedido {
 		return calcularPrecio();
 	}
 
-	public String obtenerDireccion() {
-		return this.direccion;
-	}
-
 	public String obtenerNombreCliente() {
 		return this.nombreCliente;
 	}
@@ -136,6 +117,7 @@ public class Pedido {
 		for(Paquete p: this.carritoPaquetesComprados.values()) {
 			if (t.puedeLlevarEstePaquete(p)) {
 				p.entregar();
+				this.cantidadPaquetesEntregados++;
 				t.cargarPaquete(p);
 				
 				sb.append(" + [ ");
@@ -148,6 +130,8 @@ public class Pedido {
 				
 			}
 		}
+		
+		this.entregado = this.cantidadPaquetesEntregados == this.cantidadPaquetes();
 		return sb.toString();
 	}
 

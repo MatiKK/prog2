@@ -63,20 +63,24 @@ public abstract class Paquete {
 		return this.volumen;
 	}
 
-	public boolean fueEntregado() {
-		return entregado;
-	}
-
 	public void entregar() {
-		entregado = true;
+		if (this.entregado)
+			throw new RuntimeException("Paquete ya entregado");
+		this.entregado = true;
 	}
 
 	public void cerrar() {
-		cerrado = true;
+		if (this.cerrado)
+			throw new RuntimeException("Paquete ya pertenece a un pedido cerrado");
+		this.cerrado = true;
 	}
 
 	public boolean estaCerrado() {
-		return cerrado;
+		return this.cerrado;
+	}
+
+	public boolean fueEntregado() {
+		return this.entregado;
 	}
 
 }

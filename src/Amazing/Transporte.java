@@ -86,20 +86,6 @@ public abstract class Transporte {
 		}
 	}
 
-	ArrayList<Paquete> paquetesNoEntregados() {
-
-		if (this.noTienePaquetes())
-			return null;
-
-		ArrayList<Paquete> paquetesNoEntregados = new ArrayList<Paquete>();
-
-		for (Paquete paquete : listaPaquetes()) {
-			if (!paquete.fueEntregado())
-				paquetesNoEntregados.add(paquete);
-		}
-		return paquetesNoEntregados;
-	}
-
 	protected ArrayList<Paquete> listaPaquetes() {
 		return new ArrayList<Paquete>(paquetes.values());
 	}
@@ -129,5 +115,5 @@ public abstract class Transporte {
 	protected boolean noTienePaquetes() {
 		return this.paquetes.isEmpty();
 	}
-
+	
 }
