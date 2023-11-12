@@ -139,4 +139,8 @@ public class Pedido {
 		return sb.toString();
 	}
 
+	public Integer obtenerIdentificador() {
+		return this.numPedido;
+	}
+
 }

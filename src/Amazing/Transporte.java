@@ -117,5 +117,9 @@ public abstract class Transporte {
 	protected boolean noTienePaquetes() {
 		return this.paquetes.isEmpty();
 	}
+
+	public String obtenerPatente() {
+		return this.identificador.toString();
+	}
 	
 }

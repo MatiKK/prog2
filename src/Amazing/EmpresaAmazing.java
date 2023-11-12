@@ -160,10 +160,9 @@ public class EmpresaAmazing implements IEmpresa {
 
 		Map<Integer, String> lista = new HashMap<Integer, String>();
 
-		for (Map.Entry<Integer, Pedido> pedido : pedidos.entrySet()) {
-			Pedido p = pedido.getValue();
+		for (Pedido p: pedidos.values()) {
 			if (!p.fueEntregado() && p.estaCerrado())
-				lista.put(pedido.getKey(), p.obtenerNombreCliente());
+				lista.put(p.obtenerIdentificador(), p.obtenerNombreCliente());
 		}
 		return lista;
 	}
@@ -176,24 +175,19 @@ public class EmpresaAmazing implements IEmpresa {
 	@Override
 	public boolean hayTransportesIdenticos() {
 
-		boolean hayTransportesIdenticos = false;
+		for (Transporte t1: transportes.values()) {
 
-		for (Map.Entry<String, Transporte> transportes1 : transportes.entrySet()) {
-
-			Transporte t1 = transportes1.getValue();
-
-			for (Map.Entry<String, Transporte> transportes2 : transportes.entrySet()) {
-
-				Transporte t2 = transportes2.getValue();
-
+			for (Transporte t2: transportes.values()) {
+				
 				// Si coincide la patente son el mismo y no cuenta
-				if (transportes1.getKey().equals(transportes2.getKey()))
+				if (t1.obtenerPatente().equals(t2.obtenerPatente()))
 					continue;
 
-				hayTransportesIdenticos |= t1.equals(t2);
+				if (t1.equals(t2))
+					return true;
 			}
 		}
-		return hayTransportesIdenticos;
+		return false;
 	}
 
 	private Transporte buscarTransporte(String patente) {
