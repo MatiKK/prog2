@@ -29,7 +29,8 @@ public abstract class Transporte {
 	@Override
 	public boolean equals(Object other) {
 
-		if (!(other instanceof Transporte))
+		if (other == null
+		|| this.getClass() != other.getClass())
 			return false;
 
 		Transporte other_t = (Transporte) other;

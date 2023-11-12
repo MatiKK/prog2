@@ -18,15 +18,6 @@ public class Automovil extends Transporte{
 	}
 
 	@Override
-	public boolean equals(Object other) {
-		
-		if (!(other instanceof Automovil))
-			return false;
-
-		return super.equals(other);
-	}
-
-	@Override
 	protected boolean puedeLlevarEstePaquete(Paquete p) {
 
 		if (!(p instanceof PaqueteOrdinario))

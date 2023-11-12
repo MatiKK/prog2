@@ -19,15 +19,6 @@ public class Camion extends Transporte {
 	}
 
 	@Override
-	public boolean equals(Object other) {
-
-		if (!(other instanceof Camion))
-			return false;
-
-		return super.equals(other);
-	}
-
-	@Override
 	double calcularPrecioViaje() {
 		return this.valorPorViaje + this.valorExtraPorPaquete * cantidadPaquetes();
 	}
