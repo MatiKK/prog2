@@ -23,11 +23,14 @@ public abstract class Paquete {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("Paquete n° ");
+		StringBuilder sb = new StringBuilder();
+		sb.append("Paquete id: ");
 		sb.append(this.obtenerIdentificador());
-		sb.append(". Volumen: "+this.calcularVolumen());
-		sb.append("- Precio: "+this.calcularPrecio());
-		sb.append('\n');
+		sb.append(" - estado: ");
+		String estado = fueEntregado()?"entregado":"no entregado";
+		sb.append(estado);
+		sb.append(" - Volumen: "+this.calcularVolumen());
+		sb.append(" - Precio: "+this.calcularPrecio());
 		
 		return sb.toString();
 	}

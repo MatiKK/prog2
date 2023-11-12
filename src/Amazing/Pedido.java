@@ -32,11 +32,19 @@ public class Pedido {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Pedido n°" + numPedido + "\n");
+		sb.append("Pedido id: ");
+		sb.append(numPedido);
+		sb.append("\nCliente: ");
+		sb.append(nombreCliente.toString());
+		sb.append(" - ");
+		sb.append(dniCliente);
+		sb.append("\nDirección: ");
+		sb.append(direccion.toString());
 		sb.append("Paquetes:\n");
 
 		for (Paquete paquete : this.carritoPaquetesComprados.values()) {
 			sb.append(paquete.toString());
+			sb.append('\n');
 		}
 
 		return sb.toString();

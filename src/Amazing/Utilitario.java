@@ -14,8 +14,12 @@ public class Utilitario extends Transporte {
 
 	@Override
 	public String toString() {
-		return "Utilitario " + identificador.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Utilitario ");
+		sb.append(super.toString());
+		return sb.toString();
 	}
+
 
 	@Override
 	double calcularPrecioViaje() {

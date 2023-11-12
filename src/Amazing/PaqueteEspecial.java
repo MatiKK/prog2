@@ -17,6 +17,18 @@ public class PaqueteEspecial extends Paquete {
 	}
 
 	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toString());
+		sb.append(" - porcentaje adicional: ");
+		sb.append(porcentajeAdicional);
+		sb.append(" - valor adicional: ");
+		sb.append(valorAdicional);
+		return sb.toString();
+	}
+	
+	
+	@Override
 	public boolean equals(Object other) {
 
 		if (!(other instanceof PaqueteEspecial))

@@ -14,7 +14,10 @@ public class Automovil extends Transporte{
 
 	@Override
 	public String toString() {
-		return "Automovil " + identificador.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Automovil ");
+		sb.append(super.toString());
+		return sb.toString();
 	}
 
 	@Override

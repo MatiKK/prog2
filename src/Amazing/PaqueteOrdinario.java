@@ -11,6 +11,18 @@ public class PaqueteOrdinario extends Paquete {
 			throw new RuntimeException("El costo de envío no puede ser nulo o negativo.");
 		this.costoDeEnvio = costoDeEnvio;
 	}
+	
+	@Override
+	public String toString() {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toString());
+		sb.append(" - costo de envío: ");
+		sb.append(costoDeEnvio);
+		
+		return sb.toString();
+	}
+	
 
 	@Override
 	public boolean equals(Object other) {

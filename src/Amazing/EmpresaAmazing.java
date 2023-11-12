@@ -22,7 +22,18 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 
 	public String toString() {
-		return cuit.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Empresa Amazing CUIT ");
+		sb.append(cuit.toString());
+		for(Transporte t: transportes.values()) {
+			sb.append(t.toString());
+			sb.append('\n');
+		}
+		for(Pedido p: pedidos.values()) {
+			sb.append(p.toString());
+			sb.append('\n');
+		}
+		return sb.toString();
 	}
 
 	private int generarNuevoIdentificadorDePedido() {

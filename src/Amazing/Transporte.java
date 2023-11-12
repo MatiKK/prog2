@@ -27,6 +27,20 @@ public abstract class Transporte {
 	}
 
 	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(identificador.toString());
+		sb.append(" - volumen máximo de carga: ");
+		sb.append(volumenMaximoDeCarga);
+		sb.append(" - valor por viaje: ");
+		sb.append(valorPorViaje);
+		sb.append(" - paquetes: ");
+		sb.append(cantidadPaquetes());
+		return sb.toString();
+	}
+	
+	
+	@Override
 	public boolean equals(Object other) {
 
 		if (other == null

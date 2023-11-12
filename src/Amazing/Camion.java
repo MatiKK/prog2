@@ -15,8 +15,12 @@ public class Camion extends Transporte {
 
 	@Override
 	public String toString() {
-		return "Camión " + identificador.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Camión ");
+		sb.append(super.toString());
+		return sb.toString();
 	}
+
 
 	@Override
 	double calcularPrecioViaje() {
