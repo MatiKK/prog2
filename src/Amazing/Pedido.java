@@ -11,7 +11,7 @@ public class Pedido {
 	private boolean cerrado = false;
 	private boolean entregado = false;
 	private HashMap<Integer, Paquete> carritoPaquetesComprados;
-	private int cantidadPaquetesEntregados;
+	private int cantidadPaquetesEntregados = 0;
 	private double precio = 0;
 
 	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
@@ -91,8 +91,8 @@ public class Pedido {
 		return p != null;
 	}
 
-	public boolean tienesEstePaquete(int codPaquete) {
-		return carritoPaquetesComprados.containsKey(codPaquete);
+	public boolean tienesEstePaquete(int identificadorPaquete) {
+		return carritoPaquetesComprados.containsKey(identificadorPaquete);
 	}
 
 	public double cerrar() {
@@ -130,7 +130,11 @@ public class Pedido {
 				
 			}
 		}
-		
+		/* Cuando se carguen los paquetes de un pedido,
+		se dirá que fue entregado si la cantidad de paquetes entregados 
+		coincide con la cantidad de paquetes.
+		No se pueden agregar paquetes en pedidos cerrados, por lo que agregar paquetes
+		no afecta a esto.*/
 		this.entregado = this.cantidadPaquetesEntregados == this.cantidadPaquetes();
 		return sb.toString();
 	}

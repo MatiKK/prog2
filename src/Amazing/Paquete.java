@@ -5,7 +5,7 @@ public abstract class Paquete {
 	protected int identificador;
 	protected final int volumen;
 	protected final int precio;
-	protected boolean cerrado = false;
+	protected boolean perteneceAPedidoCerrado = false;
 	protected boolean entregado = false;
 
 	public Paquete(int identificador, int volumen, int precio) {
@@ -70,13 +70,13 @@ public abstract class Paquete {
 	}
 
 	public void cerrar() {
-		if (this.cerrado)
+		if (this.perteneceAPedidoCerrado)
 			throw new RuntimeException("Paquete ya pertenece a un pedido cerrado");
-		this.cerrado = true;
+		this.perteneceAPedidoCerrado  = true;
 	}
 
-	public boolean estaCerrado() {
-		return this.cerrado;
+	public boolean perteneceAPedidoCerrado() {
+		return this.perteneceAPedidoCerrado;
 	}
 
 	public boolean fueEntregado() {
