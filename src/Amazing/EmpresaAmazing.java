@@ -107,6 +107,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 	@Override
 	public boolean quitarPaquete(int codPaquete) {
+		
 		for (Pedido pedido : pedidos.values()) {
 			
 			if (pedido.tienesEstePaquete(codPaquete))
@@ -137,12 +138,9 @@ public class EmpresaAmazing implements IEmpresa {
 
 		StringBuilder carga = new StringBuilder();
 
-		for (Pedido p: pedidos.values()) {
-			if (p.estaCerrado() && !p.fueEntregado()) {
-				carga.append(p.cargarEnTransporte(transporte));
-			}
-		}
-
+		for (Pedido p: pedidos.values())
+			carga.append(p.cargarEnTransporte(transporte));
+		
 		return carga.toString();
 	}
 

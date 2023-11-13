@@ -11,7 +11,6 @@ public class Pedido {
 	private boolean cerrado = false;
 	private boolean entregado = false;
 	private HashMap<Integer, Paquete> carritoPaquetesComprados;
-	private int cantidadPaquetesEntregados = 0;
 	private double precio = 0;
 
 	public Pedido(int numPedido, int dniCliente, String nombreCliente, String direccion) {
@@ -89,10 +88,12 @@ public class Pedido {
 	boolean quitarPaquete(int identificadorPaquete) {
 		if (this.fueEntregado() || this.estaCerrado())
 			return false;
+		if (!this.tienesEstePaquete(identificadorPaquete))
+			return false;
+		
 		Paquete p = carritoPaquetesComprados.remove(identificadorPaquete);
-		if (p != null)
-			precio -= p.calcularPrecio();
-		return p != null;
+		precio -= p.calcularPrecio();
+		return true;
 	}
 
 	public boolean tienesEstePaquete(int identificadorPaquete) {
@@ -100,10 +101,7 @@ public class Pedido {
 	}
 
 	public double cerrar() {
-		cerrado = true;
-		for (Paquete paquete : this.carritoPaquetesComprados.values()) {
-			paquete.cerrar();
-		}
+		this.cerrado = true;
 		return calcularPrecio();
 	}
 
@@ -117,33 +115,40 @@ public class Pedido {
 	
 	public String cargarEnTransporte(Transporte t) {
 		
+		if (!this.estaCerrado())
+			return "";
+		
 		StringBuilder sb = new StringBuilder();
-		for(Paquete p: this.carritoPaquetesComprados.values()) {
-			if (t.puedeLlevarEstePaquete(p)) {
-				p.entregar();
-				this.cantidadPaquetesEntregados++;
-				t.cargarPaquete(p);
-				
+		
+		int cantidadPaquetesEntregados = 0;
+		
+		for(Paquete paquete: this.carritoPaquetesComprados.values()) {
+		
+			if (t.puedeLlevarEstePaquete(paquete)) {
+				t.cargarPaquete(paquete);
+				paquete.entregar();
 				sb.append(" + [ ");
 				sb.append(this.numPedido);
 				sb.append(" - ");
-				sb.append(p.obtenerIdentificador());
+				sb.append(paquete.obtenerIdentificador());
 				sb.append(" ] ");
 				sb.append(this.direccion);
 				sb.append('\n');
-				
 			}
+			/* Pudo haber sido entregado pero por otro transporte,
+			 * por eso no sumar en el condicional anterior */
+			if (paquete.fueEntregado())
+				cantidadPaquetesEntregados++;
 		}
-		/* Cuando se carguen los paquetes de un pedido,
-		se dirá que fue entregado si la cantidad de paquetes entregados 
-		coincide con la cantidad de paquetes.
-		No se pueden agregar paquetes en pedidos cerrados, por lo que agregar paquetes
-		no afecta a esto.*/
-		this.entregado = this.cantidadPaquetesEntregados == this.cantidadPaquetes();
+		
+		/* Si la cantidad de paquetes que fueron entregados
+		 * coincide con la cantidad total de paquetes del pedido,
+		 * Se puede decir que el pedido está entregado */
+		this.entregado = cantidadPaquetesEntregados == this.cantidadPaquetes();
 		return sb.toString();
 	}
 
-	public Integer obtenerIdentificador() {
+	public int obtenerIdentificador() {
 		return this.numPedido;
 	}
 
