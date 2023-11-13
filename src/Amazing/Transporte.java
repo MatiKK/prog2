@@ -9,6 +9,7 @@ public abstract class Transporte {
 	protected final String identificador;
 	protected final int volumenMaximoDeCarga;
 	protected final int valorPorViaje;
+	protected int carga = 0;
 	protected HashMap<Integer, Paquete> paquetes;
 
 	public Transporte(String identificador, int volumenMaximoDeCarga, int valorPorViaje) {
@@ -71,6 +72,8 @@ public abstract class Transporte {
 			if (!(listaPaquetes.contains(paquete_t)))
 				return false;
 			
+			/* Si encuentra en listaPaquetes un paquete igual a paquete_t
+			 * se lo quita de la lista para que no sea tomado más en cuenta*/
 			listaPaquetes.remove(paquete_t);
 
 		}
@@ -85,6 +88,7 @@ public abstract class Transporte {
 
 		if (!(paquetes.containsKey(identificadorPaquete))) {
 			paquetes.put(identificadorPaquete, p);
+			volumen += p.calcularVolumen();
 		}
 	}
 
@@ -101,13 +105,7 @@ public abstract class Transporte {
 	}
 
 	int consultarCarga() {
-
-		int cargaTotal = 0;
-
-		for (Paquete paquete : listaPaquetes())
-			cargaTotal += paquete.calcularVolumen();
-
-		return cargaTotal;
+		return this.carga;
 	}
 
 	protected int cantidadPaquetes() {
