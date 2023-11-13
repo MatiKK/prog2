@@ -70,6 +70,8 @@ public abstract class Transporte {
 
 			if (!(listaPaquetes.contains(paquete_t)))
 				return false;
+			
+			listaPaquetes.remove(paquete_t);
 
 		}
 		return true;
