@@ -77,12 +77,11 @@ public class Pedido {
 	}
 
 	private void agregarPaquete(Paquete p) {
-
 		if (this.estaCerrado())
 			throw new RuntimeException("Pedido ya cerrado.");
 
-		precio += p.calcularPrecio();
 		carritoPaquetesComprados.put(p.obtenerIdentificador(), p);
+		precio += p.calcularPrecio();
 	}
 
 	boolean quitarPaquete(int identificadorPaquete) {
@@ -101,6 +100,8 @@ public class Pedido {
 	}
 
 	public double cerrar() {
+		if (this.estaCerrado())
+			throw new RuntimeException("Pedido ya cerrado.");
 		this.cerrado = true;
 		return calcularPrecio();
 	}
@@ -109,7 +110,7 @@ public class Pedido {
 		return this.nombreCliente;
 	}
 
-	public int cantidadPaquetes() {
+	private int cantidadPaquetes() {
 		return carritoPaquetesComprados.size();
 	}
 	

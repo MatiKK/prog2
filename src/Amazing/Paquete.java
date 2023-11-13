@@ -63,7 +63,7 @@ public abstract class Paquete {
 	}
 
 	public void entregar() {
-		if (this.entregado)
+		if (this.fueEntregado())
 			throw new RuntimeException("Paquete ya entregado");
 		this.entregado = true;
 	}
