@@ -88,7 +88,7 @@ public abstract class Transporte {
 
 		if (!(paquetes.containsKey(identificadorPaquete))) {
 			paquetes.put(identificadorPaquete, p);
-			volumen += p.calcularVolumen();
+			carga += p.calcularVolumen();
 		}
 	}
 
